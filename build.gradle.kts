@@ -15,7 +15,7 @@ plugins {
 }
 
 // Published modules whose public API and coverage we track.
-val publishedModules = listOf("live-activities", "live-activities-compose")
+val publishedModules = listOf("halo", "halo-compose")
 
 // Validate the binary (ABI) compatibility of every published module so an
 // accidental public-API break is caught in review instead of by consumers.

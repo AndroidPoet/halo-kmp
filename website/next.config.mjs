@@ -6,9 +6,9 @@ const withNextra = nextra({
   defaultShowCopyCode: true,
 })
 
-// Served from https://androidpoet.github.io/live-activities-kmp/ — a GitHub Pages project
+// Served from https://androidpoet.github.io/halo-kmp/ — a GitHub Pages project
 // site lives under a sub-path, so set basePath/assetPrefix accordingly.
-const basePath = '/live-activities-kmp'
+const basePath = '/halo-kmp'
 
 export default withNextra({
   output: 'export',

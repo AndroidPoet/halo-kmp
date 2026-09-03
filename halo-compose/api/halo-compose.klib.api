@@ -1,0 +1,9 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, wasmJs]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <halo-kmp:halo-compose>
+final fun io.github.androidpoet.halo.compose/rememberLiveActivityManager(androidx.compose.runtime/Composer?, kotlin/Int): io.github.androidpoet.halo/LiveActivityManager // io.github.androidpoet.halo.compose/rememberLiveActivityManager|rememberLiveActivityManager(androidx.compose.runtime.Composer?;kotlin.Int){}[0]

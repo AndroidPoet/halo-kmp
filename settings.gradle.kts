@@ -14,8 +14,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "live-activities-kmp"
+rootProject.name = "halo-kmp"
 
-include(":live-activities")
-include(":live-activities-compose")
+include(":halo")
+include(":halo-compose")
 include(":sample:composeApp")

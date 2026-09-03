@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:label="Live Activities KMP"
+        android:label="Halo"
         android:icon="@drawable/ic_timer"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
@@ -19,7 +19,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="liveactivities" android:host="sample" />
+                <data android:scheme="halo" android:host="sample" />
             </intent-filter>
         </activity>
     </application>

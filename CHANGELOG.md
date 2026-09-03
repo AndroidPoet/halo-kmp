@@ -8,7 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- **`live-activities`** — `LiveActivityManager` with `start`, `update`, `end`, `endAll`,
+- **`halo`** — `LiveActivityManager` with `start`, `update`, `end`, `endAll`,
   `authorization` and an `activities` state flow; typed `LiveActivityResult` /
   `LiveActivityException` (codes 2001–2008); `LiveActivityContent` with progress, a
   natively ticking `LiveActivityTimer` (countdown, count-up, pause), icon, accent and
@@ -18,8 +18,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   notification fallback down to API 26, restore after process death, `canPromote` /
   `isPromotable`.
 - **iOS** — `IosLiveActivityManager` over a `LiveActivityBridge`; Swift package
-  `LiveActivitiesKMP` with `KmpLiveActivityAttributes`, `LiveActivityKit` and a default
-  `KmpLiveActivityWidget` (Lock Screen + Dynamic Island); system-expired activities surface
+  `HaloKMP` with `HaloActivityAttributes`, `HaloKit` and a default
+  `HaloActivityWidget` (Lock Screen + Dynamic Island); system-expired activities surface
   as `Expired`.
-- **`live-activities-compose`** — `rememberLiveActivityManager()` for Compose Multiplatform.
+- **`halo-compose`** — `rememberLiveActivityManager()` for Compose Multiplatform.
 - JVM, macOS and Wasm stubs so shared code compiles everywhere.

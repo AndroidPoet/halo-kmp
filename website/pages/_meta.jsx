@@ -8,7 +8,7 @@ export default {
   github_link: {
     title: 'GitHub',
     type: 'page',
-    href: 'https://github.com/AndroidPoet/live-activities-kmp',
+    href: 'https://github.com/AndroidPoet/halo-kmp',
     newWindow: true,
   },
 }

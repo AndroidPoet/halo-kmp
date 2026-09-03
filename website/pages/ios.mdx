@@ -9,26 +9,26 @@ ActivityKit is Swift-only, so the Kotlin manager talks to a small Swift bridge. 
 
 ## 1. Swift package (app **and** widget extension)
 
-Add `swift/LiveActivitiesKMP` from the repository as a local package and link it from both
+Add `swift/HaloKMP` from the repository as a local package and link it from both
 targets. It provides:
 
-- `KmpLiveActivityAttributes` — the single `ActivityAttributes` type ActivityKit uses to match
+- `HaloActivityAttributes` — the single `ActivityAttributes` type ActivityKit uses to match
   an activity to its widget. Never copy or re-declare it; a duplicate type means the activity
   starts but nothing renders.
-- `LiveActivityKit` — the ActivityKit calls.
-- `KmpLiveActivityWidget` — a default Lock Screen + Dynamic Island UI.
+- `HaloKit` — the ActivityKit calls.
+- `HaloActivityWidget` — a default Lock Screen + Dynamic Island UI.
 
 ## 2. Widget extension
 
 ```swift
-import LiveActivitiesKMP
+import HaloKMP
 import SwiftUI
 import WidgetKit
 
 @main
 struct MyWidgets: WidgetBundle {
     var body: some Widget {
-        KmpLiveActivityWidget()
+        HaloActivityWidget()
     }
 }
 ```
@@ -37,18 +37,18 @@ Add `NSSupportsLiveActivities = YES` to the **app's** `Info.plist`. The extensio
 `Info.plist` needs `NSExtensionPointIdentifier = com.apple.widgetkit-extension`. See
 `sample/composeApp/iosApp/project.yml` for a complete xcodegen definition.
 
-For a custom look, write your own `ActivityConfiguration(for: KmpLiveActivityAttributes.self)`
+For a custom look, write your own `ActivityConfiguration(for: HaloActivityAttributes.self)`
 and read `context.state` (`title`, `subtitle`, `timerRange`, `progressFraction`, `values`).
 
 ## 3. Bridge file (app target only)
 
-Copy `swift/LiveActivitiesBridge.swift` into the app target, change `import ComposeApp` to your
+Copy `swift/HaloBridge.swift` into the app target, change `import ComposeApp` to your
 Kotlin framework's name, and register it at launch:
 
 ```swift
 @main
 struct MyApp: App {
-    init() { LiveActivities.shared.register(bridge: LiveActivitiesBridge()) }
+    init() { Halo.shared.register(bridge: HaloBridge()) }
     // ...
 }
 ```
@@ -59,10 +59,10 @@ Export the library from the framework so Swift sees `LiveActivityBridge` and `Li
 listOf(iosArm64(), iosSimulatorArm64()).forEach {
     it.binaries.framework {
         baseName = "ComposeApp"
-        export(project(":live-activities"))
+        export(project(":halo"))
     }
 }
-// commonMain: api(project(":live-activities"))
+// commonMain: api(project(":halo"))
 ```
 
 Link the Kotlin framework exactly once; a second copy has its own empty bridge registry.

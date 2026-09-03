@@ -1,4 +1,4 @@
-import io.github.androidpoet.liveactivities.Configuration
+import io.github.androidpoet.halo.Configuration
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -17,14 +17,14 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             // Exposes LiveActivityBridge / LiveActivities to Swift under their own names.
-            export(project(":live-activities"))
+            export(project(":halo"))
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":live-activities"))
-            implementation(project(":live-activities-compose"))
+            api(project(":halo"))
+            implementation(project(":halo-compose"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -39,11 +39,11 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.androidpoet.liveactivities.sample"
+    namespace = "io.github.androidpoet.halo.sample"
     compileSdk = Configuration.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "io.github.androidpoet.liveactivities.sample"
+        applicationId = "io.github.androidpoet.halo.sample"
         minSdk = Configuration.MIN_SDK
         targetSdk = Configuration.COMPILE_SDK
         versionCode = 1

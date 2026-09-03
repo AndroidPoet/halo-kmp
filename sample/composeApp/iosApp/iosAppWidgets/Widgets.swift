@@ -1,4 +1,4 @@
-import LiveActivitiesKMP
+import HaloKMP
 import SwiftUI
 import WidgetKit
 
@@ -6,6 +6,6 @@ import WidgetKit
 @main
 struct SampleWidgets: WidgetBundle {
     var body: some Widget {
-        KmpLiveActivityWidget()
+        HaloActivityWidget()
     }
 }

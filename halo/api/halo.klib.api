@@ -1,0 +1,351 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, wasmJs]
+// Alias: ios => [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <halo-kmp:halo>
+final enum class io.github.androidpoet.halo/LiveActivityAuthorization : kotlin/Enum<io.github.androidpoet.halo/LiveActivityAuthorization> { // io.github.androidpoet.halo/LiveActivityAuthorization|null[0]
+    enum entry Authorized // io.github.androidpoet.halo/LiveActivityAuthorization.Authorized|null[0]
+    enum entry Denied // io.github.androidpoet.halo/LiveActivityAuthorization.Denied|null[0]
+    enum entry Unsupported // io.github.androidpoet.halo/LiveActivityAuthorization.Unsupported|null[0]
+
+    final val entries // io.github.androidpoet.halo/LiveActivityAuthorization.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.androidpoet.halo/LiveActivityAuthorization> // io.github.androidpoet.halo/LiveActivityAuthorization.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.androidpoet.halo/LiveActivityAuthorization // io.github.androidpoet.halo/LiveActivityAuthorization.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.androidpoet.halo/LiveActivityAuthorization> // io.github.androidpoet.halo/LiveActivityAuthorization.values|values#static(){}[0]
+}
+
+final enum class io.github.androidpoet.halo/LiveActivityState : kotlin/Enum<io.github.androidpoet.halo/LiveActivityState> { // io.github.androidpoet.halo/LiveActivityState|null[0]
+    enum entry Active // io.github.androidpoet.halo/LiveActivityState.Active|null[0]
+    enum entry Dismissed // io.github.androidpoet.halo/LiveActivityState.Dismissed|null[0]
+    enum entry Ended // io.github.androidpoet.halo/LiveActivityState.Ended|null[0]
+    enum entry Expired // io.github.androidpoet.halo/LiveActivityState.Expired|null[0]
+
+    final val entries // io.github.androidpoet.halo/LiveActivityState.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.androidpoet.halo/LiveActivityState> // io.github.androidpoet.halo/LiveActivityState.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.androidpoet.halo/LiveActivityState // io.github.androidpoet.halo/LiveActivityState.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.androidpoet.halo/LiveActivityState> // io.github.androidpoet.halo/LiveActivityState.values|values#static(){}[0]
+}
+
+abstract interface io.github.androidpoet.halo/LiveActivityManager { // io.github.androidpoet.halo/LiveActivityManager|null[0]
+    abstract val activities // io.github.androidpoet.halo/LiveActivityManager.activities|{}activities[0]
+        abstract fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.halo/LiveActivity>> // io.github.androidpoet.halo/LiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    abstract val isSupported // io.github.androidpoet.halo/LiveActivityManager.isSupported|{}isSupported[0]
+        abstract fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    abstract fun close() // io.github.androidpoet.halo/LiveActivityManager.close|close(){}[0]
+    abstract suspend fun authorization(): io.github.androidpoet.halo/LiveActivityAuthorization // io.github.androidpoet.halo/LiveActivityManager.authorization|authorization(){}[0]
+    abstract suspend fun end(kotlin/String, io.github.androidpoet.halo/LiveActivityContent? = ..., io.github.androidpoet.halo/LiveActivityDismissal = ...): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/LiveActivityManager.end|end(kotlin.String;io.github.androidpoet.halo.LiveActivityContent?;io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    abstract suspend fun endAll(io.github.androidpoet.halo/LiveActivityDismissal = ...): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/LiveActivityManager.endAll|endAll(io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    abstract suspend fun start(io.github.androidpoet.halo/LiveActivityRequest): io.github.androidpoet.halo/LiveActivityResult<io.github.androidpoet.halo/LiveActivity> // io.github.androidpoet.halo/LiveActivityManager.start|start(io.github.androidpoet.halo.LiveActivityRequest){}[0]
+    abstract suspend fun update(kotlin/String, io.github.androidpoet.halo/LiveActivityContent): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/LiveActivityManager.update|update(kotlin.String;io.github.androidpoet.halo.LiveActivityContent){}[0]
+}
+
+sealed interface io.github.androidpoet.halo/LiveActivityDismissal { // io.github.androidpoet.halo/LiveActivityDismissal|null[0]
+    final class After : io.github.androidpoet.halo/LiveActivityDismissal { // io.github.androidpoet.halo/LiveActivityDismissal.After|null[0]
+        constructor <init>(kotlin/Long) // io.github.androidpoet.halo/LiveActivityDismissal.After.<init>|<init>(kotlin.Long){}[0]
+
+        final val epochMillis // io.github.androidpoet.halo/LiveActivityDismissal.After.epochMillis|{}epochMillis[0]
+            final fun <get-epochMillis>(): kotlin/Long // io.github.androidpoet.halo/LiveActivityDismissal.After.epochMillis.<get-epochMillis>|<get-epochMillis>(){}[0]
+
+        final fun component1(): kotlin/Long // io.github.androidpoet.halo/LiveActivityDismissal.After.component1|component1(){}[0]
+        final fun copy(kotlin/Long = ...): io.github.androidpoet.halo/LiveActivityDismissal.After // io.github.androidpoet.halo/LiveActivityDismissal.After.copy|copy(kotlin.Long){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityDismissal.After.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityDismissal.After.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityDismissal.After.toString|toString(){}[0]
+    }
+
+    final object Default : io.github.androidpoet.halo/LiveActivityDismissal { // io.github.androidpoet.halo/LiveActivityDismissal.Default|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityDismissal.Default.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityDismissal.Default.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityDismissal.Default.toString|toString(){}[0]
+    }
+
+    final object Immediate : io.github.androidpoet.halo/LiveActivityDismissal { // io.github.androidpoet.halo/LiveActivityDismissal.Immediate|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityDismissal.Immediate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityDismissal.Immediate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityDismissal.Immediate.toString|toString(){}[0]
+    }
+}
+
+sealed interface io.github.androidpoet.halo/LiveActivityProgress { // io.github.androidpoet.halo/LiveActivityProgress|null[0]
+    final class Determinate : io.github.androidpoet.halo/LiveActivityProgress { // io.github.androidpoet.halo/LiveActivityProgress.Determinate|null[0]
+        constructor <init>(kotlin/Int, kotlin/Int) // io.github.androidpoet.halo/LiveActivityProgress.Determinate.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+
+        final val current // io.github.androidpoet.halo/LiveActivityProgress.Determinate.current|{}current[0]
+            final fun <get-current>(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Determinate.current.<get-current>|<get-current>(){}[0]
+        final val max // io.github.androidpoet.halo/LiveActivityProgress.Determinate.max|{}max[0]
+            final fun <get-max>(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Determinate.max.<get-max>|<get-max>(){}[0]
+
+        final fun component1(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Determinate.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Determinate.component2|component2(){}[0]
+        final fun copy(kotlin/Int = ..., kotlin/Int = ...): io.github.androidpoet.halo/LiveActivityProgress.Determinate // io.github.androidpoet.halo/LiveActivityProgress.Determinate.copy|copy(kotlin.Int;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityProgress.Determinate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Determinate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityProgress.Determinate.toString|toString(){}[0]
+    }
+
+    final object Indeterminate : io.github.androidpoet.halo/LiveActivityProgress { // io.github.androidpoet.halo/LiveActivityProgress.Indeterminate|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityProgress.Indeterminate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityProgress.Indeterminate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityProgress.Indeterminate.toString|toString(){}[0]
+    }
+}
+
+final class io.github.androidpoet.halo/LiveActivity { // io.github.androidpoet.halo/LiveActivity|null[0]
+    constructor <init>(kotlin/String, kotlin/String, io.github.androidpoet.halo/LiveActivityContent, io.github.androidpoet.halo/LiveActivityState, kotlin/Long, kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...) // io.github.androidpoet.halo/LiveActivity.<init>|<init>(kotlin.String;kotlin.String;io.github.androidpoet.halo.LiveActivityContent;io.github.androidpoet.halo.LiveActivityState;kotlin.Long;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+
+    final val attributes // io.github.androidpoet.halo/LiveActivity.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivity.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val content // io.github.androidpoet.halo/LiveActivity.content|{}content[0]
+        final fun <get-content>(): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivity.content.<get-content>|<get-content>(){}[0]
+    final val deepLink // io.github.androidpoet.halo/LiveActivity.deepLink|{}deepLink[0]
+        final fun <get-deepLink>(): kotlin/String? // io.github.androidpoet.halo/LiveActivity.deepLink.<get-deepLink>|<get-deepLink>(){}[0]
+    final val id // io.github.androidpoet.halo/LiveActivity.id|{}id[0]
+        final fun <get-id>(): kotlin/String // io.github.androidpoet.halo/LiveActivity.id.<get-id>|<get-id>(){}[0]
+    final val kind // io.github.androidpoet.halo/LiveActivity.kind|{}kind[0]
+        final fun <get-kind>(): kotlin/String // io.github.androidpoet.halo/LiveActivity.kind.<get-kind>|<get-kind>(){}[0]
+    final val startedAtEpochMillis // io.github.androidpoet.halo/LiveActivity.startedAtEpochMillis|{}startedAtEpochMillis[0]
+        final fun <get-startedAtEpochMillis>(): kotlin/Long // io.github.androidpoet.halo/LiveActivity.startedAtEpochMillis.<get-startedAtEpochMillis>|<get-startedAtEpochMillis>(){}[0]
+    final val state // io.github.androidpoet.halo/LiveActivity.state|{}state[0]
+        final fun <get-state>(): io.github.androidpoet.halo/LiveActivityState // io.github.androidpoet.halo/LiveActivity.state.<get-state>|<get-state>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.androidpoet.halo/LiveActivity.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.androidpoet.halo/LiveActivity.component2|component2(){}[0]
+    final fun component3(): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivity.component3|component3(){}[0]
+    final fun component4(): io.github.androidpoet.halo/LiveActivityState // io.github.androidpoet.halo/LiveActivity.component4|component4(){}[0]
+    final fun component5(): kotlin/Long // io.github.androidpoet.halo/LiveActivity.component5|component5(){}[0]
+    final fun component6(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivity.component6|component6(){}[0]
+    final fun component7(): kotlin/String? // io.github.androidpoet.halo/LiveActivity.component7|component7(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ..., io.github.androidpoet.halo/LiveActivityContent = ..., io.github.androidpoet.halo/LiveActivityState = ..., kotlin/Long = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...): io.github.androidpoet.halo/LiveActivity // io.github.androidpoet.halo/LiveActivity.copy|copy(kotlin.String;kotlin.String;io.github.androidpoet.halo.LiveActivityContent;io.github.androidpoet.halo.LiveActivityState;kotlin.Long;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivity.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.halo/LiveActivityContent { // io.github.androidpoet.halo/LiveActivityContent|null[0]
+    constructor <init>(kotlin/String, kotlin/String? = ..., kotlin/String? = ..., io.github.androidpoet.halo/LiveActivityProgress? = ..., io.github.androidpoet.halo/LiveActivityTimer? = ..., kotlin/String? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...) // io.github.androidpoet.halo/LiveActivityContent.<init>|<init>(kotlin.String;kotlin.String?;kotlin.String?;io.github.androidpoet.halo.LiveActivityProgress?;io.github.androidpoet.halo.LiveActivityTimer?;kotlin.String?;kotlin.Long?;kotlin.Long?;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+    final val accentColorArgb // io.github.androidpoet.halo/LiveActivityContent.accentColorArgb|{}accentColorArgb[0]
+        final fun <get-accentColorArgb>(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityContent.accentColorArgb.<get-accentColorArgb>|<get-accentColorArgb>(){}[0]
+    final val icon // io.github.androidpoet.halo/LiveActivityContent.icon|{}icon[0]
+        final fun <get-icon>(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.icon.<get-icon>|<get-icon>(){}[0]
+    final val progress // io.github.androidpoet.halo/LiveActivityContent.progress|{}progress[0]
+        final fun <get-progress>(): io.github.androidpoet.halo/LiveActivityProgress? // io.github.androidpoet.halo/LiveActivityContent.progress.<get-progress>|<get-progress>(){}[0]
+    final val shortText // io.github.androidpoet.halo/LiveActivityContent.shortText|{}shortText[0]
+        final fun <get-shortText>(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.shortText.<get-shortText>|<get-shortText>(){}[0]
+    final val staleAtEpochMillis // io.github.androidpoet.halo/LiveActivityContent.staleAtEpochMillis|{}staleAtEpochMillis[0]
+        final fun <get-staleAtEpochMillis>(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityContent.staleAtEpochMillis.<get-staleAtEpochMillis>|<get-staleAtEpochMillis>(){}[0]
+    final val subtitle // io.github.androidpoet.halo/LiveActivityContent.subtitle|{}subtitle[0]
+        final fun <get-subtitle>(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.subtitle.<get-subtitle>|<get-subtitle>(){}[0]
+    final val timer // io.github.androidpoet.halo/LiveActivityContent.timer|{}timer[0]
+        final fun <get-timer>(): io.github.androidpoet.halo/LiveActivityTimer? // io.github.androidpoet.halo/LiveActivityContent.timer.<get-timer>|<get-timer>(){}[0]
+    final val title // io.github.androidpoet.halo/LiveActivityContent.title|{}title[0]
+        final fun <get-title>(): kotlin/String // io.github.androidpoet.halo/LiveActivityContent.title.<get-title>|<get-title>(){}[0]
+    final val values // io.github.androidpoet.halo/LiveActivityContent.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivityContent.values.<get-values>|<get-values>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.androidpoet.halo/LiveActivityContent.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.component3|component3(){}[0]
+    final fun component4(): io.github.androidpoet.halo/LiveActivityProgress? // io.github.androidpoet.halo/LiveActivityContent.component4|component4(){}[0]
+    final fun component5(): io.github.androidpoet.halo/LiveActivityTimer? // io.github.androidpoet.halo/LiveActivityContent.component5|component5(){}[0]
+    final fun component6(): kotlin/String? // io.github.androidpoet.halo/LiveActivityContent.component6|component6(){}[0]
+    final fun component7(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityContent.component7|component7(){}[0]
+    final fun component8(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityContent.component8|component8(){}[0]
+    final fun component9(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivityContent.component9|component9(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/String? = ..., io.github.androidpoet.halo/LiveActivityProgress? = ..., io.github.androidpoet.halo/LiveActivityTimer? = ..., kotlin/String? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivityContent.copy|copy(kotlin.String;kotlin.String?;kotlin.String?;io.github.androidpoet.halo.LiveActivityProgress?;io.github.androidpoet.halo.LiveActivityTimer?;kotlin.String?;kotlin.Long?;kotlin.Long?;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityContent.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityContent.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityContent.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.halo/LiveActivityRequest { // io.github.androidpoet.halo/LiveActivityRequest|null[0]
+    constructor <init>(io.github.androidpoet.halo/LiveActivityContent, kotlin/String = ..., kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...) // io.github.androidpoet.halo/LiveActivityRequest.<init>|<init>(io.github.androidpoet.halo.LiveActivityContent;kotlin.String;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+
+    final val attributes // io.github.androidpoet.halo/LiveActivityRequest.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivityRequest.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val content // io.github.androidpoet.halo/LiveActivityRequest.content|{}content[0]
+        final fun <get-content>(): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivityRequest.content.<get-content>|<get-content>(){}[0]
+    final val deepLink // io.github.androidpoet.halo/LiveActivityRequest.deepLink|{}deepLink[0]
+        final fun <get-deepLink>(): kotlin/String? // io.github.androidpoet.halo/LiveActivityRequest.deepLink.<get-deepLink>|<get-deepLink>(){}[0]
+    final val id // io.github.androidpoet.halo/LiveActivityRequest.id|{}id[0]
+        final fun <get-id>(): kotlin/String // io.github.androidpoet.halo/LiveActivityRequest.id.<get-id>|<get-id>(){}[0]
+    final val kind // io.github.androidpoet.halo/LiveActivityRequest.kind|{}kind[0]
+        final fun <get-kind>(): kotlin/String // io.github.androidpoet.halo/LiveActivityRequest.kind.<get-kind>|<get-kind>(){}[0]
+
+    final fun component1(): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivityRequest.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.androidpoet.halo/LiveActivityRequest.component2|component2(){}[0]
+    final fun component3(): kotlin/String // io.github.androidpoet.halo/LiveActivityRequest.component3|component3(){}[0]
+    final fun component4(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.halo/LiveActivityRequest.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // io.github.androidpoet.halo/LiveActivityRequest.component5|component5(){}[0]
+    final fun copy(io.github.androidpoet.halo/LiveActivityContent = ..., kotlin/String = ..., kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...): io.github.androidpoet.halo/LiveActivityRequest // io.github.androidpoet.halo/LiveActivityRequest.copy|copy(io.github.androidpoet.halo.LiveActivityContent;kotlin.String;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityRequest.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.halo/LiveActivityTimer { // io.github.androidpoet.halo/LiveActivityTimer|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long, kotlin/Boolean = ..., kotlin/Long? = ...) // io.github.androidpoet.halo/LiveActivityTimer.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.Boolean;kotlin.Long?){}[0]
+
+    final val countsDown // io.github.androidpoet.halo/LiveActivityTimer.countsDown|{}countsDown[0]
+        final fun <get-countsDown>(): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityTimer.countsDown.<get-countsDown>|<get-countsDown>(){}[0]
+    final val endAtEpochMillis // io.github.androidpoet.halo/LiveActivityTimer.endAtEpochMillis|{}endAtEpochMillis[0]
+        final fun <get-endAtEpochMillis>(): kotlin/Long // io.github.androidpoet.halo/LiveActivityTimer.endAtEpochMillis.<get-endAtEpochMillis>|<get-endAtEpochMillis>(){}[0]
+    final val pausedAtEpochMillis // io.github.androidpoet.halo/LiveActivityTimer.pausedAtEpochMillis|{}pausedAtEpochMillis[0]
+        final fun <get-pausedAtEpochMillis>(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityTimer.pausedAtEpochMillis.<get-pausedAtEpochMillis>|<get-pausedAtEpochMillis>(){}[0]
+    final val startAtEpochMillis // io.github.androidpoet.halo/LiveActivityTimer.startAtEpochMillis|{}startAtEpochMillis[0]
+        final fun <get-startAtEpochMillis>(): kotlin/Long // io.github.androidpoet.halo/LiveActivityTimer.startAtEpochMillis.<get-startAtEpochMillis>|<get-startAtEpochMillis>(){}[0]
+
+    final fun component1(): kotlin/Long // io.github.androidpoet.halo/LiveActivityTimer.component1|component1(){}[0]
+    final fun component2(): kotlin/Long // io.github.androidpoet.halo/LiveActivityTimer.component2|component2(){}[0]
+    final fun component3(): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityTimer.component3|component3(){}[0]
+    final fun component4(): kotlin/Long? // io.github.androidpoet.halo/LiveActivityTimer.component4|component4(){}[0]
+    final fun copy(kotlin/Long = ..., kotlin/Long = ..., kotlin/Boolean = ..., kotlin/Long? = ...): io.github.androidpoet.halo/LiveActivityTimer // io.github.androidpoet.halo/LiveActivityTimer.copy|copy(kotlin.Long;kotlin.Long;kotlin.Boolean;kotlin.Long?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityTimer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityTimer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityTimer.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.halo/UnsupportedLiveActivityManager : io.github.androidpoet.halo/LiveActivityManager { // io.github.androidpoet.halo/UnsupportedLiveActivityManager|null[0]
+    constructor <init>() // io.github.androidpoet.halo/UnsupportedLiveActivityManager.<init>|<init>(){}[0]
+
+    final val activities // io.github.androidpoet.halo/UnsupportedLiveActivityManager.activities|{}activities[0]
+        final fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.halo/LiveActivity>> // io.github.androidpoet.halo/UnsupportedLiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    final val isSupported // io.github.androidpoet.halo/UnsupportedLiveActivityManager.isSupported|{}isSupported[0]
+        final fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.halo/UnsupportedLiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    final fun close() // io.github.androidpoet.halo/UnsupportedLiveActivityManager.close|close(){}[0]
+    final suspend fun authorization(): io.github.androidpoet.halo/LiveActivityAuthorization // io.github.androidpoet.halo/UnsupportedLiveActivityManager.authorization|authorization(){}[0]
+    final suspend fun end(kotlin/String, io.github.androidpoet.halo/LiveActivityContent?, io.github.androidpoet.halo/LiveActivityDismissal): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/UnsupportedLiveActivityManager.end|end(kotlin.String;io.github.androidpoet.halo.LiveActivityContent?;io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    final suspend fun endAll(io.github.androidpoet.halo/LiveActivityDismissal): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/UnsupportedLiveActivityManager.endAll|endAll(io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    final suspend fun start(io.github.androidpoet.halo/LiveActivityRequest): io.github.androidpoet.halo/LiveActivityResult<io.github.androidpoet.halo/LiveActivity> // io.github.androidpoet.halo/UnsupportedLiveActivityManager.start|start(io.github.androidpoet.halo.LiveActivityRequest){}[0]
+    final suspend fun update(kotlin/String, io.github.androidpoet.halo/LiveActivityContent): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/UnsupportedLiveActivityManager.update|update(kotlin.String;io.github.androidpoet.halo.LiveActivityContent){}[0]
+}
+
+sealed class <#A: out kotlin/Any?> io.github.androidpoet.halo/LiveActivityResult { // io.github.androidpoet.halo/LiveActivityResult|null[0]
+    final class <#A1: kotlin/Any?> Success : io.github.androidpoet.halo/LiveActivityResult<#A1> { // io.github.androidpoet.halo/LiveActivityResult.Success|null[0]
+        constructor <init>(#A1) // io.github.androidpoet.halo/LiveActivityResult.Success.<init>|<init>(1:0){}[0]
+
+        final val value // io.github.androidpoet.halo/LiveActivityResult.Success.value|{}value[0]
+            final fun <get-value>(): #A1 // io.github.androidpoet.halo/LiveActivityResult.Success.value.<get-value>|<get-value>(){}[0]
+
+        final fun component1(): #A1 // io.github.androidpoet.halo/LiveActivityResult.Success.component1|component1(){}[0]
+        final fun copy(#A1 = ...): io.github.androidpoet.halo/LiveActivityResult.Success<#A1> // io.github.androidpoet.halo/LiveActivityResult.Success.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityResult.Success.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityResult.Success.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityResult.Success.toString|toString(){}[0]
+    }
+
+    final class Failure : io.github.androidpoet.halo/LiveActivityResult<kotlin/Nothing> { // io.github.androidpoet.halo/LiveActivityResult.Failure|null[0]
+        constructor <init>(io.github.androidpoet.halo/LiveActivityException) // io.github.androidpoet.halo/LiveActivityResult.Failure.<init>|<init>(io.github.androidpoet.halo.LiveActivityException){}[0]
+
+        final val error // io.github.androidpoet.halo/LiveActivityResult.Failure.error|{}error[0]
+            final fun <get-error>(): io.github.androidpoet.halo/LiveActivityException // io.github.androidpoet.halo/LiveActivityResult.Failure.error.<get-error>|<get-error>(){}[0]
+
+        final fun component1(): io.github.androidpoet.halo/LiveActivityException // io.github.androidpoet.halo/LiveActivityResult.Failure.component1|component1(){}[0]
+        final fun copy(io.github.androidpoet.halo/LiveActivityException = ...): io.github.androidpoet.halo/LiveActivityResult.Failure // io.github.androidpoet.halo/LiveActivityResult.Failure.copy|copy(io.github.androidpoet.halo.LiveActivityException){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityResult.Failure.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.halo/LiveActivityResult.Failure.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.halo/LiveActivityResult.Failure.toString|toString(){}[0]
+    }
+}
+
+sealed class io.github.androidpoet.halo/LiveActivityException : kotlin/Exception { // io.github.androidpoet.halo/LiveActivityException|null[0]
+    final val code // io.github.androidpoet.halo/LiveActivityException.code|{}code[0]
+        final fun <get-code>(): kotlin/Int // io.github.androidpoet.halo/LiveActivityException.code.<get-code>|<get-code>(){}[0]
+    open val cause // io.github.androidpoet.halo/LiveActivityException.cause|{}cause[0]
+        open fun <get-cause>(): kotlin/Throwable? // io.github.androidpoet.halo/LiveActivityException.cause.<get-cause>|<get-cause>(){}[0]
+    open val message // io.github.androidpoet.halo/LiveActivityException.message|{}message[0]
+        open fun <get-message>(): kotlin/String // io.github.androidpoet.halo/LiveActivityException.message.<get-message>|<get-message>(){}[0]
+
+    final class AlreadyActive : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.AlreadyActive|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.AlreadyActive.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class InvalidContent : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.InvalidContent|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.InvalidContent.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class NotAuthorized : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.NotAuthorized|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.NotAuthorized.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class NotFound : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.NotFound|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.NotFound.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class PayloadTooLarge : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.PayloadTooLarge|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.PayloadTooLarge.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class PlatformError : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.PlatformError|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.PlatformError.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class TooManyActivities : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.TooManyActivities|null[0]
+        constructor <init>(kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.TooManyActivities.<init>|<init>(kotlin.Throwable?){}[0]
+    }
+
+    final class Unsupported : io.github.androidpoet.halo/LiveActivityException { // io.github.androidpoet.halo/LiveActivityException.Unsupported|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.halo/LiveActivityException.Unsupported.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+}
+
+final object io.github.androidpoet.halo/LiveActivityCodec { // io.github.androidpoet.halo/LiveActivityCodec|null[0]
+    final fun decodeActivity(kotlin/String): io.github.androidpoet.halo/LiveActivity // io.github.androidpoet.halo/LiveActivityCodec.decodeActivity|decodeActivity(kotlin.String){}[0]
+    final fun decodeContent(kotlin/String): io.github.androidpoet.halo/LiveActivityContent // io.github.androidpoet.halo/LiveActivityCodec.decodeContent|decodeContent(kotlin.String){}[0]
+    final fun encodeActivity(io.github.androidpoet.halo/LiveActivity): kotlin/String // io.github.androidpoet.halo/LiveActivityCodec.encodeActivity|encodeActivity(io.github.androidpoet.halo.LiveActivity){}[0]
+    final fun encodeContent(io.github.androidpoet.halo/LiveActivityContent): kotlin/String // io.github.androidpoet.halo/LiveActivityCodec.encodeContent|encodeContent(io.github.androidpoet.halo.LiveActivityContent){}[0]
+    final fun encodeRequest(io.github.androidpoet.halo/LiveActivityRequest, kotlin/Long): kotlin/String // io.github.androidpoet.halo/LiveActivityCodec.encodeRequest|encodeRequest(io.github.androidpoet.halo.LiveActivityRequest;kotlin.Long){}[0]
+}
+
+final const val io.github.androidpoet.halo/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES // io.github.androidpoet.halo/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES|{}LIVE_ACTIVITY_MAX_PAYLOAD_BYTES[0]
+    final fun <get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>(): kotlin/Int // io.github.androidpoet.halo/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES.<get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>|<get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>(){}[0]
+
+final fun (io.github.androidpoet.halo/LiveActivityContent).io.github.androidpoet.halo/validate(): io.github.androidpoet.halo/LiveActivityException? // io.github.androidpoet.halo/validate|validate@io.github.androidpoet.halo.LiveActivityContent(){}[0]
+final fun (io.github.androidpoet.halo/LiveActivityDismissal).io.github.androidpoet.halo/validate(kotlin/Long): io.github.androidpoet.halo/LiveActivityException? // io.github.androidpoet.halo/validate|validate@io.github.androidpoet.halo.LiveActivityDismissal(kotlin.Long){}[0]
+final fun (io.github.androidpoet.halo/LiveActivityRequest).io.github.androidpoet.halo/validate(): io.github.androidpoet.halo/LiveActivityException? // io.github.androidpoet.halo/validate|validate@io.github.androidpoet.halo.LiveActivityRequest(){}[0]
+final fun <#A: kotlin/Any?> (io.github.androidpoet.halo/LiveActivityResult<#A>).io.github.androidpoet.halo/errorOrNull(): io.github.androidpoet.halo/LiveActivityException? // io.github.androidpoet.halo/errorOrNull|errorOrNull@io.github.androidpoet.halo.LiveActivityResult<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (io.github.androidpoet.halo/LiveActivityResult<#A>).io.github.androidpoet.halo/getOrNull(): #A? // io.github.androidpoet.halo/getOrNull|getOrNull@io.github.androidpoet.halo.LiveActivityResult<0:0>(){0§<kotlin.Any?>}[0]
+final fun io.github.androidpoet.halo/generateLiveActivityId(): kotlin/String // io.github.androidpoet.halo/generateLiveActivityId|generateLiveActivityId(){}[0]
+
+// Targets: [ios]
+abstract interface io.github.androidpoet.halo/LiveActivityBridge { // io.github.androidpoet.halo/LiveActivityBridge|null[0]
+    abstract fun activeActivities(): kotlin.collections/List<kotlin/String> // io.github.androidpoet.halo/LiveActivityBridge.activeActivities|activeActivities(){}[0]
+    abstract fun areActivitiesEnabled(): kotlin/Boolean // io.github.androidpoet.halo/LiveActivityBridge.areActivitiesEnabled|areActivitiesEnabled(){}[0]
+    abstract fun end(kotlin/String, kotlin/String?, kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.halo/LiveActivityBridge.end|end(kotlin.String;kotlin.String?;kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+    abstract fun setStateListener(kotlin/Function2<kotlin/String, kotlin/String, kotlin/Unit>) // io.github.androidpoet.halo/LiveActivityBridge.setStateListener|setStateListener(kotlin.Function2<kotlin.String,kotlin.String,kotlin.Unit>){}[0]
+    abstract fun start(kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.halo/LiveActivityBridge.start|start(kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+    abstract fun update(kotlin/String, kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.halo/LiveActivityBridge.update|update(kotlin.String;kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+}
+
+// Targets: [ios]
+final class io.github.androidpoet.halo/IosLiveActivityManager : io.github.androidpoet.halo/LiveActivityManager { // io.github.androidpoet.halo/IosLiveActivityManager|null[0]
+    constructor <init>() // io.github.androidpoet.halo/IosLiveActivityManager.<init>|<init>(){}[0]
+
+    final val activities // io.github.androidpoet.halo/IosLiveActivityManager.activities|{}activities[0]
+        final fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.halo/LiveActivity>> // io.github.androidpoet.halo/IosLiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    final val isSupported // io.github.androidpoet.halo/IosLiveActivityManager.isSupported|{}isSupported[0]
+        final fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.halo/IosLiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    final fun close() // io.github.androidpoet.halo/IosLiveActivityManager.close|close(){}[0]
+    final suspend fun authorization(): io.github.androidpoet.halo/LiveActivityAuthorization // io.github.androidpoet.halo/IosLiveActivityManager.authorization|authorization(){}[0]
+    final suspend fun end(kotlin/String, io.github.androidpoet.halo/LiveActivityContent?, io.github.androidpoet.halo/LiveActivityDismissal): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/IosLiveActivityManager.end|end(kotlin.String;io.github.androidpoet.halo.LiveActivityContent?;io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    final suspend fun endAll(io.github.androidpoet.halo/LiveActivityDismissal): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/IosLiveActivityManager.endAll|endAll(io.github.androidpoet.halo.LiveActivityDismissal){}[0]
+    final suspend fun start(io.github.androidpoet.halo/LiveActivityRequest): io.github.androidpoet.halo/LiveActivityResult<io.github.androidpoet.halo/LiveActivity> // io.github.androidpoet.halo/IosLiveActivityManager.start|start(io.github.androidpoet.halo.LiveActivityRequest){}[0]
+    final suspend fun update(kotlin/String, io.github.androidpoet.halo/LiveActivityContent): io.github.androidpoet.halo/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.halo/IosLiveActivityManager.update|update(kotlin.String;io.github.androidpoet.halo.LiveActivityContent){}[0]
+}
+
+// Targets: [ios]
+final object io.github.androidpoet.halo/Halo { // io.github.androidpoet.halo/Halo|null[0]
+    final val bridge // io.github.androidpoet.halo/Halo.bridge|{}bridge[0]
+        final fun <get-bridge>(): io.github.androidpoet.halo/LiveActivityBridge? // io.github.androidpoet.halo/Halo.bridge.<get-bridge>|<get-bridge>(){}[0]
+
+    final fun register(io.github.androidpoet.halo/LiveActivityBridge) // io.github.androidpoet.halo/Halo.register|register(io.github.androidpoet.halo.LiveActivityBridge){}[0]
+}

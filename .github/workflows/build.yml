@@ -42,8 +42,8 @@ jobs:
         run: ./gradlew koverVerify
 
       - name: Swift package (ActivityKit side)
-        run: xcodebuild -scheme LiveActivitiesKMP -destination 'generic/platform=iOS Simulator' build
-        working-directory: swift/LiveActivitiesKMP
+        run: xcodebuild -scheme HaloKMP -destination 'generic/platform=iOS Simulator' build
+        working-directory: swift/HaloKMP
 
   # Compile every declared target family so a platform-specific break is caught
   # on the OS that can actually link it.

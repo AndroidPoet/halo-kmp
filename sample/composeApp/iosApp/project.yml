@@ -4,8 +4,8 @@ options:
   deploymentTarget:
     iOS: "16.2"
 packages:
-  LiveActivitiesKMP:
-    path: ../../../swift/LiveActivitiesKMP
+  HaloKMP:
+    path: ../../../swift/HaloKMP
 settings:
   base:
     CODE_SIGN_STYLE: Automatic
@@ -19,24 +19,24 @@ targets:
     sources:
       - path: iosApp
     dependencies:
-      - package: LiveActivitiesKMP
+      - package: HaloKMP
       - target: iosAppWidgets
         embed: true
         codeSign: true
     info:
       path: iosApp/Info.plist
       properties:
-        CFBundleDisplayName: Live Activities
+        CFBundleDisplayName: Halo
         UILaunchScreen: {}
         # Required for ActivityKit.
         NSSupportsLiveActivities: true
         # Compose on ProMotion iPhones needs this or it aborts at launch.
         CADisableMinimumFrameDurationOnPhone: true
         CFBundleURLTypes:
-          - CFBundleURLSchemes: [liveactivities]
+          - CFBundleURLSchemes: [halo]
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.liveactivities.sample
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.halo.sample
         FRAMEWORK_SEARCH_PATHS: $(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
         OTHER_LDFLAGS: $(inherited) -framework ComposeApp
     preBuildScripts:
@@ -51,14 +51,14 @@ targets:
     sources:
       - path: iosAppWidgets
     dependencies:
-      - package: LiveActivitiesKMP
+      - package: HaloKMP
     info:
       path: iosAppWidgets/Info.plist
       properties:
-        CFBundleDisplayName: Live Activities Widgets
+        CFBundleDisplayName: Halo Widgets
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.liveactivities.sample.widgets
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.halo.sample.widgets
         SKIP_INSTALL: YES

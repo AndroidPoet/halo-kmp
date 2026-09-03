@@ -1,0 +1,4 @@
+public final class io/github/androidpoet/halo/compose/RememberLiveActivityManager_jvmKt {
+	public static final fun rememberLiveActivityManager (Landroidx/compose/runtime/Composer;I)Lio/github/androidpoet/halo/LiveActivityManager;
+}
+

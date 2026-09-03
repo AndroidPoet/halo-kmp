@@ -8,14 +8,14 @@ const Logo = () => (
       <circle cx="8" cy="12" r="2.5" fill="#fff" />
       <rect x="12" y="10.5" width="7" height="3" rx="1.5" fill="#fff" opacity="0.9" />
     </svg>
-    <span>Live Activities KMP</span>
+    <span>Halo</span>
   </span>
 )
 
-const SITE = 'Live Activities KMP'
-const REPO = 'https://github.com/AndroidPoet/live-activities-kmp'
+const SITE = 'Halo'
+const REPO = 'https://github.com/AndroidPoet/halo-kmp'
 const DESCRIPTION =
-  'Live Activities KMP — one Kotlin Multiplatform API for iOS ActivityKit (Lock Screen, Dynamic Island) and Android 16 Live Updates.'
+  'Halo — one Kotlin Multiplatform API for iOS ActivityKit (Lock Screen, Dynamic Island) and Android 16 Live Updates.'
 
 export default {
   logo: <Logo />,
@@ -39,7 +39,7 @@ export default {
     const pageTitle = frontMatter?.title
     const title = pageTitle ? `${pageTitle} – ${SITE}` : SITE
     const description = frontMatter?.description ?? DESCRIPTION
-    const base = 'https://androidpoet.github.io/live-activities-kmp'
+    const base = 'https://androidpoet.github.io/halo-kmp'
     const path = asPath === '/' ? '' : asPath.split('?')[0].split('#')[0]
     const canonical = `${base}${path}`
     const ogImage = `${base}/favicon.svg`

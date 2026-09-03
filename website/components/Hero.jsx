@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const REPO = 'https://github.com/AndroidPoet/live-activities-kmp'
+const REPO = 'https://github.com/AndroidPoet/halo-kmp'
 
 const GitHubMark = () => (
   <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -13,7 +13,7 @@ export function Hero() {
     <div className="pk-hero">
       <div className="pk-hero-glow" aria-hidden="true" />
       <span className="pk-hero-badge">Kotlin Multiplatform · ActivityKit + Android 16 Live Updates</span>
-      <h1 className="pk-hero-title">Live Activities KMP</h1>
+      <h1 className="pk-hero-title">Halo</h1>
       <p className="pk-hero-sub">
         Start, update and end a live activity from commonMain. iOS shows it on the Lock Screen and
         in the Dynamic Island; Android shows it as a promoted Live Update with a ticking timer.

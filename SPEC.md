@@ -1,4 +1,4 @@
-# live-activities-kmp — Specification (v0.1.0, post-critique)
+# halo-kmp — Specification (v0.1.0, post-critique)
 
 One common Kotlin Multiplatform API to **start, update and end a live activity** —
 a system-surfaced, glanceable, ongoing status card — backed by **ActivityKit**
@@ -6,8 +6,8 @@ a system-surfaced, glanceable, ongoing status card — backed by **ActivityKit**
 (promoted ongoing notification with `ProgressStyle` / chronometer) on Android,
 with an ongoing-notification fallback on older Android.
 
-Repo `AndroidPoet/live-activities-kmp`. Artifacts `io.github.androidpoet:live-activities`,
-`io.github.androidpoet:live-activities-compose`. Package `io.github.androidpoet.liveactivities`.
+Repo `AndroidPoet/halo-kmp`. Artifacts `io.github.androidpoet:halo`,
+`io.github.androidpoet:halo-compose`. Package `io.github.androidpoet.halo`.
 Built on the passkeys-kmp house standard (explicitApi, BCV dumps, detekt, spotless/ktlint,
 kover, dokka, KDoc everywhere, CoC, Nextra docs, vanniktech publish).
 
@@ -121,7 +121,7 @@ Also public in `commonMain`:
 
 ### Compose module
 `@Composable public expect fun rememberLiveActivityManager(): LiveActivityManager` — remembered, closed in
-`DisposableEffect`. Android → `AndroidLiveActivityManager(LocalContext.applicationContext, LiveActivities.androidConfig)`;
+`DisposableEffect`. Android → `AndroidLiveActivityManager(LocalContext.applicationContext, Halo.androidConfig)`;
 iOS → `IosLiveActivityManager()`; jvm/wasmJs → `UnsupportedLiveActivityManager`.
 
 ## 3. Platform behaviour
@@ -136,8 +136,8 @@ public class AndroidLiveActivityConfig(
     val iconResolver: ((String) -> Int)? = null,          // content.icon → @DrawableRes; null → smallIconRes
     val contentIntent: ((LiveActivity) -> PendingIntent)? = null,
 )
-public object LiveActivities { public var androidConfig: AndroidLiveActivityConfig }
-public class AndroidLiveActivityManager(context: Context, config: AndroidLiveActivityConfig = LiveActivities.androidConfig) {
+public object Halo { public var androidConfig: AndroidLiveActivityConfig }
+public class AndroidLiveActivityManager(context: Context, config: AndroidLiveActivityConfig = Halo.androidConfig) {
     public val canPromote: Boolean          // SDK_INT >= 36 && NotificationManagerCompat.canPostPromotedNotifications()
     public fun isPromotable(id: String): Boolean  // SDK_INT >= 36 && notification.hasPromotableCharacteristics(), else false
 }
@@ -168,32 +168,32 @@ public interface LiveActivityBridge {
     public fun start(activityJson: String, staleAtEpochMillis: Long, completion: (code: String?, message: String?) -> Unit)
     public fun update(id: String, contentJson: String, staleAtEpochMillis: Long, completion: (String?, String?) -> Unit)
     public fun end(id: String, finalContentJson: String?, dismissal: String, dismissAtEpochMillis: Long, completion: (String?, String?) -> Unit)
-    public fun setStateListener(listener: (id: String, state: String) -> Unit)  // called once by LiveActivities.register
+    public fun setStateListener(listener: (id: String, state: String) -> Unit)  // called once by Halo.register
 }
-public object LiveActivities {
+public object Halo {
     public fun register(bridge: LiveActivityBridge)   // installs the single state listener → internal SharedFlow fan-out
     public val bridge: LiveActivityBridge?
 }
-public class IosLiveActivityManager : LiveActivityManager   // reads LiveActivities.bridge lazily on every call
+public class IosLiveActivityManager : LiveActivityManager   // reads Halo.bridge lazily on every call
 ```
 Error code vocabulary from Swift: `unsupported | denied | too_many | too_large | not_found | platform`.
 State vocabulary: `active | ended | dismissed | expired` (Swift emits `expired` when `activityStateUpdates` reports
 `.ended`/`.dismissed` for an id the library did not end itself).
 `isSupported` = iOS ≥ 16.2 && bridge registered (evaluated per read, so late registration recovers).
 
-Swift package `swift/LiveActivitiesKMP` (no Kotlin dependency; `platforms: [.iOS(.v16)]`; **linked by app and widget extension** —
-the single source of `KmpLiveActivityAttributes`, consumers never copy it):
-- `KmpLiveActivityAttributes: ActivityAttributes` — static `id, kind, attributes, deepLink`; `ContentState` = every content
+Swift package `swift/HaloKMP` (no Kotlin dependency; `platforms: [.iOS(.v16)]`; **linked by app and widget extension** —
+the single source of `HaloActivityAttributes`, consumers never copy it):
+- `HaloActivityAttributes: ActivityAttributes` — static `id, kind, attributes, deepLink`; `ContentState` = every content
   field optional with defaults (schema drift safe), **excluding** `staleAt`, which goes to `ActivityContent(staleDate:)`.
-- `LiveActivityKit` (`@MainActor`) — start/update/end/activeActivities over ActivityKit; maps
+- `HaloKit` (`@MainActor`) — start/update/end/activeActivities over ActivityKit; maps
   `ActivityAuthorizationError` cases to the code vocabulary; restores `Activity.activities` on init; observes
   `activityStateUpdates` per activity and emits state strings.
-- `KmpLiveActivityWidget: Widget` — default Lock Screen + Dynamic Island UI. Timer rendered with
+- `HaloActivityWidget: Widget` — default Lock Screen + Dynamic Island UI. Timer rendered with
   `Text(timerInterval: start...end, pauseTime: pausedAt, countsDown:)` where `start <= end` is guaranteed by validation
   (an elapsed countdown shows 0:00, never traps). `shortText` displaces the timer in compact trailing.
   `widgetURL(deepLink)`. Stale state renders dimmed.
-- Glue file `swift/LiveActivitiesBridge.swift` — the only copied source: `final class LiveActivitiesBridge: LiveActivityBridge`
-  forwarding to `LiveActivityKit`, plus `LiveActivities.shared.register(bridge:)`. Declares no attributes type.
+- Glue file `swift/HaloBridge.swift` — the only copied source: `final class HaloBridge: LiveActivityBridge`
+  forwarding to `HaloKit`, plus `Halo.shared.register(bridge:)`. Declares no attributes type.
 - Link-once rule: the Kotlin framework containing this library must be linked exactly once (the app's umbrella framework);
   the widget extension links only the Swift package.
 
@@ -216,7 +216,7 @@ A6 iPhone 17 simulator: (a) Start → Lock Screen activity (`xcrun simctl io boo
    (b) Dynamic Island expanded/compact, (c) +5 min updates, (d) Finish ends it. `Activity.activities.count == 1` logged from app.
 A7 Gates: `./gradlew spotlessCheck detekt apiCheck jvmTest testDebugUnitTest iosSimulatorArm64Test koverVerify` and
    `compileKotlinIosArm64 compileKotlinMacosArm64 compileKotlinJvm compileKotlinWasmJs`;
-   Swift: `xcodebuild -scheme LiveActivitiesKMP -destination 'generic/platform=iOS Simulator' build` in `swift/LiveActivitiesKMP`.
+   Swift: `xcodebuild -scheme HaloKMP -destination 'generic/platform=iOS Simulator' build` in `swift/HaloKMP`.
 A8 KDoc on every public declaration; README (one API, platform table, one-time setup, 8 h ceiling, troubleshooting
    "starts but nothing renders"); CHANGELOG 0.1.0; Nextra docs; CoC.
 
