@@ -1,0 +1,38 @@
+---
+title: Getting Started
+description: Add Live Activities KMP to a Kotlin Multiplatform project.
+---
+
+# Getting Started
+
+## Install
+
+```kotlin
+commonMain.dependencies {
+    implementation("io.github.androidpoet:live-activities:0.1.0")
+    implementation("io.github.androidpoet:live-activities-compose:0.1.0")
+}
+```
+
+`live-activities` ships the API and the platform managers. `live-activities-compose` adds
+`rememberLiveActivityManager()` for Compose Multiplatform.
+
+## Get a manager
+
+```kotlin
+@Composable
+fun FocusScreen() {
+    val liveActivities = rememberLiveActivityManager()
+    // ...
+}
+```
+
+Without Compose, construct the platform manager directly: `AndroidLiveActivityManager(context)`
+on Android, `IosLiveActivityManager()` on iOS, `UnsupportedLiveActivityManager()` elsewhere.
+
+## Finish the platform setup
+
+- [Android](/android): request `POST_NOTIFICATIONS` on API 33+, optionally configure icons.
+- [iOS](/ios): add the Swift package, a widget extension and the bridge file.
+
+Then follow [Usage](/usage).

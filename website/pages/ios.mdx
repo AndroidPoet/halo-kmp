@@ -1,0 +1,76 @@
+---
+title: iOS
+description: ActivityKit setup — Swift package, widget extension, bridge.
+---
+
+# iOS
+
+ActivityKit is Swift-only, so the Kotlin manager talks to a small Swift bridge. Three pieces:
+
+## 1. Swift package (app **and** widget extension)
+
+Add `swift/LiveActivitiesKMP` from the repository as a local package and link it from both
+targets. It provides:
+
+- `KmpLiveActivityAttributes` — the single `ActivityAttributes` type ActivityKit uses to match
+  an activity to its widget. Never copy or re-declare it; a duplicate type means the activity
+  starts but nothing renders.
+- `LiveActivityKit` — the ActivityKit calls.
+- `KmpLiveActivityWidget` — a default Lock Screen + Dynamic Island UI.
+
+## 2. Widget extension
+
+```swift
+import LiveActivitiesKMP
+import SwiftUI
+import WidgetKit
+
+@main
+struct MyWidgets: WidgetBundle {
+    var body: some Widget {
+        KmpLiveActivityWidget()
+    }
+}
+```
+
+Add `NSSupportsLiveActivities = YES` to the **app's** `Info.plist`. The extension's
+`Info.plist` needs `NSExtensionPointIdentifier = com.apple.widgetkit-extension`. See
+`sample/composeApp/iosApp/project.yml` for a complete xcodegen definition.
+
+For a custom look, write your own `ActivityConfiguration(for: KmpLiveActivityAttributes.self)`
+and read `context.state` (`title`, `subtitle`, `timerRange`, `progressFraction`, `values`).
+
+## 3. Bridge file (app target only)
+
+Copy `swift/LiveActivitiesBridge.swift` into the app target, change `import ComposeApp` to your
+Kotlin framework's name, and register it at launch:
+
+```swift
+@main
+struct MyApp: App {
+    init() { LiveActivities.shared.register(bridge: LiveActivitiesBridge()) }
+    // ...
+}
+```
+
+Export the library from the framework so Swift sees `LiveActivityBridge` and `LiveActivities`:
+
+```kotlin
+listOf(iosArm64(), iosSimulatorArm64()).forEach {
+    it.binaries.framework {
+        baseName = "ComposeApp"
+        export(project(":live-activities"))
+    }
+}
+// commonMain: api(project(":live-activities"))
+```
+
+Link the Kotlin framework exactly once; a second copy has its own empty bridge registry.
+
+## Behaviour
+
+- Floor is iOS 16.2. `isSupported` is false until the bridge is registered.
+- `authorization()` is `Denied` when `ActivityAuthorizationInfo().areActivitiesEnabled` is false.
+- The system ends activities after eight hours; they surface as `Expired`.
+- `staleAtEpochMillis` becomes `ActivityContent.staleDate`; the default widget dims stale content.
+- Payloads over about 4 KB are refused by ActivityKit; the library caps encoded requests at 3 KB.

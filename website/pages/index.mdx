@@ -1,0 +1,40 @@
+---
+title: Live Activities KMP
+description: One Kotlin Multiplatform API for iOS ActivityKit (Lock Screen, Dynamic Island) and Android 16 Live Updates.
+---
+
+import { Hero } from '../components/Hero'
+import { Cards } from 'nextra/components'
+
+<Hero />
+
+**Live Activities KMP** gives you one typed API in `commonMain` to start, update and end a
+system-surfaced status card. iOS renders it with ActivityKit on the Lock Screen and in the
+Dynamic Island; Android renders it as an Android 16 Live Update (promoted ongoing notification
+with progress and a chronometer), falling back to an ongoing notification on older versions.
+
+```kotlin
+val liveActivities = rememberLiveActivityManager()
+
+when (val result = liveActivities.start(LiveActivityRequest(content))) {
+    is LiveActivityResult.Success -> sessionId = result.value.id
+    is LiveActivityResult.Failure -> show(result.error.code, result.error.message)
+}
+```
+
+## Why Live Activities KMP
+
+- **Native surfaces, one call site.** ActivityKit and Live Updates behind a single interface.
+- **The system ticks the clock.** `LiveActivityTimer` is rendered from absolute timestamps;
+  you never send per-second updates.
+- **Result-first, typed errors.** Every call returns a `LiveActivityResult` with a stable code.
+- **Survives process death.** Running activities are restored, content included.
+- **Honest about limits.** iOS's eight-hour ceiling surfaces as `Expired`; payloads over 3 KB
+  are rejected before they reach the platform.
+
+<Cards>
+  <Cards.Card title="Getting started" href="/getting-started" />
+  <Cards.Card title="Usage" href="/usage" />
+  <Cards.Card title="iOS setup" href="/ios" />
+  <Cards.Card title="Android setup" href="/android" />
+</Cards>

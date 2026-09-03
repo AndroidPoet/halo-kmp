@@ -1,0 +1,351 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, wasmJs]
+// Alias: ios => [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <live-activities-kmp:live-activities>
+final enum class io.github.androidpoet.liveactivities/LiveActivityAuthorization : kotlin/Enum<io.github.androidpoet.liveactivities/LiveActivityAuthorization> { // io.github.androidpoet.liveactivities/LiveActivityAuthorization|null[0]
+    enum entry Authorized // io.github.androidpoet.liveactivities/LiveActivityAuthorization.Authorized|null[0]
+    enum entry Denied // io.github.androidpoet.liveactivities/LiveActivityAuthorization.Denied|null[0]
+    enum entry Unsupported // io.github.androidpoet.liveactivities/LiveActivityAuthorization.Unsupported|null[0]
+
+    final val entries // io.github.androidpoet.liveactivities/LiveActivityAuthorization.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.androidpoet.liveactivities/LiveActivityAuthorization> // io.github.androidpoet.liveactivities/LiveActivityAuthorization.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.androidpoet.liveactivities/LiveActivityAuthorization // io.github.androidpoet.liveactivities/LiveActivityAuthorization.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.androidpoet.liveactivities/LiveActivityAuthorization> // io.github.androidpoet.liveactivities/LiveActivityAuthorization.values|values#static(){}[0]
+}
+
+final enum class io.github.androidpoet.liveactivities/LiveActivityState : kotlin/Enum<io.github.androidpoet.liveactivities/LiveActivityState> { // io.github.androidpoet.liveactivities/LiveActivityState|null[0]
+    enum entry Active // io.github.androidpoet.liveactivities/LiveActivityState.Active|null[0]
+    enum entry Dismissed // io.github.androidpoet.liveactivities/LiveActivityState.Dismissed|null[0]
+    enum entry Ended // io.github.androidpoet.liveactivities/LiveActivityState.Ended|null[0]
+    enum entry Expired // io.github.androidpoet.liveactivities/LiveActivityState.Expired|null[0]
+
+    final val entries // io.github.androidpoet.liveactivities/LiveActivityState.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.androidpoet.liveactivities/LiveActivityState> // io.github.androidpoet.liveactivities/LiveActivityState.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.androidpoet.liveactivities/LiveActivityState // io.github.androidpoet.liveactivities/LiveActivityState.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.androidpoet.liveactivities/LiveActivityState> // io.github.androidpoet.liveactivities/LiveActivityState.values|values#static(){}[0]
+}
+
+abstract interface io.github.androidpoet.liveactivities/LiveActivityManager { // io.github.androidpoet.liveactivities/LiveActivityManager|null[0]
+    abstract val activities // io.github.androidpoet.liveactivities/LiveActivityManager.activities|{}activities[0]
+        abstract fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.liveactivities/LiveActivity>> // io.github.androidpoet.liveactivities/LiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    abstract val isSupported // io.github.androidpoet.liveactivities/LiveActivityManager.isSupported|{}isSupported[0]
+        abstract fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    abstract fun close() // io.github.androidpoet.liveactivities/LiveActivityManager.close|close(){}[0]
+    abstract suspend fun authorization(): io.github.androidpoet.liveactivities/LiveActivityAuthorization // io.github.androidpoet.liveactivities/LiveActivityManager.authorization|authorization(){}[0]
+    abstract suspend fun end(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent? = ..., io.github.androidpoet.liveactivities/LiveActivityDismissal = ...): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/LiveActivityManager.end|end(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent?;io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    abstract suspend fun endAll(io.github.androidpoet.liveactivities/LiveActivityDismissal = ...): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/LiveActivityManager.endAll|endAll(io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    abstract suspend fun start(io.github.androidpoet.liveactivities/LiveActivityRequest): io.github.androidpoet.liveactivities/LiveActivityResult<io.github.androidpoet.liveactivities/LiveActivity> // io.github.androidpoet.liveactivities/LiveActivityManager.start|start(io.github.androidpoet.liveactivities.LiveActivityRequest){}[0]
+    abstract suspend fun update(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/LiveActivityManager.update|update(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent){}[0]
+}
+
+sealed interface io.github.androidpoet.liveactivities/LiveActivityDismissal { // io.github.androidpoet.liveactivities/LiveActivityDismissal|null[0]
+    final class After : io.github.androidpoet.liveactivities/LiveActivityDismissal { // io.github.androidpoet.liveactivities/LiveActivityDismissal.After|null[0]
+        constructor <init>(kotlin/Long) // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.<init>|<init>(kotlin.Long){}[0]
+
+        final val epochMillis // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.epochMillis|{}epochMillis[0]
+            final fun <get-epochMillis>(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.epochMillis.<get-epochMillis>|<get-epochMillis>(){}[0]
+
+        final fun component1(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.component1|component1(){}[0]
+        final fun copy(kotlin/Long = ...): io.github.androidpoet.liveactivities/LiveActivityDismissal.After // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.copy|copy(kotlin.Long){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityDismissal.After.toString|toString(){}[0]
+    }
+
+    final object Default : io.github.androidpoet.liveactivities/LiveActivityDismissal { // io.github.androidpoet.liveactivities/LiveActivityDismissal.Default|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityDismissal.Default.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityDismissal.Default.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityDismissal.Default.toString|toString(){}[0]
+    }
+
+    final object Immediate : io.github.androidpoet.liveactivities/LiveActivityDismissal { // io.github.androidpoet.liveactivities/LiveActivityDismissal.Immediate|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityDismissal.Immediate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityDismissal.Immediate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityDismissal.Immediate.toString|toString(){}[0]
+    }
+}
+
+sealed interface io.github.androidpoet.liveactivities/LiveActivityProgress { // io.github.androidpoet.liveactivities/LiveActivityProgress|null[0]
+    final class Determinate : io.github.androidpoet.liveactivities/LiveActivityProgress { // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate|null[0]
+        constructor <init>(kotlin/Int, kotlin/Int) // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+
+        final val current // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.current|{}current[0]
+            final fun <get-current>(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.current.<get-current>|<get-current>(){}[0]
+        final val max // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.max|{}max[0]
+            final fun <get-max>(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.max.<get-max>|<get-max>(){}[0]
+
+        final fun component1(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.component2|component2(){}[0]
+        final fun copy(kotlin/Int = ..., kotlin/Int = ...): io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.copy|copy(kotlin.Int;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityProgress.Determinate.toString|toString(){}[0]
+    }
+
+    final object Indeterminate : io.github.androidpoet.liveactivities/LiveActivityProgress { // io.github.androidpoet.liveactivities/LiveActivityProgress.Indeterminate|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityProgress.Indeterminate.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityProgress.Indeterminate.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityProgress.Indeterminate.toString|toString(){}[0]
+    }
+}
+
+final class io.github.androidpoet.liveactivities/LiveActivity { // io.github.androidpoet.liveactivities/LiveActivity|null[0]
+    constructor <init>(kotlin/String, kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent, io.github.androidpoet.liveactivities/LiveActivityState, kotlin/Long, kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...) // io.github.androidpoet.liveactivities/LiveActivity.<init>|<init>(kotlin.String;kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent;io.github.androidpoet.liveactivities.LiveActivityState;kotlin.Long;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+
+    final val attributes // io.github.androidpoet.liveactivities/LiveActivity.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivity.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val content // io.github.androidpoet.liveactivities/LiveActivity.content|{}content[0]
+        final fun <get-content>(): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivity.content.<get-content>|<get-content>(){}[0]
+    final val deepLink // io.github.androidpoet.liveactivities/LiveActivity.deepLink|{}deepLink[0]
+        final fun <get-deepLink>(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivity.deepLink.<get-deepLink>|<get-deepLink>(){}[0]
+    final val id // io.github.androidpoet.liveactivities/LiveActivity.id|{}id[0]
+        final fun <get-id>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivity.id.<get-id>|<get-id>(){}[0]
+    final val kind // io.github.androidpoet.liveactivities/LiveActivity.kind|{}kind[0]
+        final fun <get-kind>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivity.kind.<get-kind>|<get-kind>(){}[0]
+    final val startedAtEpochMillis // io.github.androidpoet.liveactivities/LiveActivity.startedAtEpochMillis|{}startedAtEpochMillis[0]
+        final fun <get-startedAtEpochMillis>(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivity.startedAtEpochMillis.<get-startedAtEpochMillis>|<get-startedAtEpochMillis>(){}[0]
+    final val state // io.github.androidpoet.liveactivities/LiveActivity.state|{}state[0]
+        final fun <get-state>(): io.github.androidpoet.liveactivities/LiveActivityState // io.github.androidpoet.liveactivities/LiveActivity.state.<get-state>|<get-state>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivity.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivity.component2|component2(){}[0]
+    final fun component3(): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivity.component3|component3(){}[0]
+    final fun component4(): io.github.androidpoet.liveactivities/LiveActivityState // io.github.androidpoet.liveactivities/LiveActivity.component4|component4(){}[0]
+    final fun component5(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivity.component5|component5(){}[0]
+    final fun component6(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivity.component6|component6(){}[0]
+    final fun component7(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivity.component7|component7(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ..., io.github.androidpoet.liveactivities/LiveActivityContent = ..., io.github.androidpoet.liveactivities/LiveActivityState = ..., kotlin/Long = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...): io.github.androidpoet.liveactivities/LiveActivity // io.github.androidpoet.liveactivities/LiveActivity.copy|copy(kotlin.String;kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent;io.github.androidpoet.liveactivities.LiveActivityState;kotlin.Long;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivity.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivity.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivity.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.liveactivities/LiveActivityContent { // io.github.androidpoet.liveactivities/LiveActivityContent|null[0]
+    constructor <init>(kotlin/String, kotlin/String? = ..., kotlin/String? = ..., io.github.androidpoet.liveactivities/LiveActivityProgress? = ..., io.github.androidpoet.liveactivities/LiveActivityTimer? = ..., kotlin/String? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...) // io.github.androidpoet.liveactivities/LiveActivityContent.<init>|<init>(kotlin.String;kotlin.String?;kotlin.String?;io.github.androidpoet.liveactivities.LiveActivityProgress?;io.github.androidpoet.liveactivities.LiveActivityTimer?;kotlin.String?;kotlin.Long?;kotlin.Long?;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+
+    final val accentColorArgb // io.github.androidpoet.liveactivities/LiveActivityContent.accentColorArgb|{}accentColorArgb[0]
+        final fun <get-accentColorArgb>(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityContent.accentColorArgb.<get-accentColorArgb>|<get-accentColorArgb>(){}[0]
+    final val icon // io.github.androidpoet.liveactivities/LiveActivityContent.icon|{}icon[0]
+        final fun <get-icon>(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.icon.<get-icon>|<get-icon>(){}[0]
+    final val progress // io.github.androidpoet.liveactivities/LiveActivityContent.progress|{}progress[0]
+        final fun <get-progress>(): io.github.androidpoet.liveactivities/LiveActivityProgress? // io.github.androidpoet.liveactivities/LiveActivityContent.progress.<get-progress>|<get-progress>(){}[0]
+    final val shortText // io.github.androidpoet.liveactivities/LiveActivityContent.shortText|{}shortText[0]
+        final fun <get-shortText>(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.shortText.<get-shortText>|<get-shortText>(){}[0]
+    final val staleAtEpochMillis // io.github.androidpoet.liveactivities/LiveActivityContent.staleAtEpochMillis|{}staleAtEpochMillis[0]
+        final fun <get-staleAtEpochMillis>(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityContent.staleAtEpochMillis.<get-staleAtEpochMillis>|<get-staleAtEpochMillis>(){}[0]
+    final val subtitle // io.github.androidpoet.liveactivities/LiveActivityContent.subtitle|{}subtitle[0]
+        final fun <get-subtitle>(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.subtitle.<get-subtitle>|<get-subtitle>(){}[0]
+    final val timer // io.github.androidpoet.liveactivities/LiveActivityContent.timer|{}timer[0]
+        final fun <get-timer>(): io.github.androidpoet.liveactivities/LiveActivityTimer? // io.github.androidpoet.liveactivities/LiveActivityContent.timer.<get-timer>|<get-timer>(){}[0]
+    final val title // io.github.androidpoet.liveactivities/LiveActivityContent.title|{}title[0]
+        final fun <get-title>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityContent.title.<get-title>|<get-title>(){}[0]
+    final val values // io.github.androidpoet.liveactivities/LiveActivityContent.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivityContent.values.<get-values>|<get-values>(){}[0]
+
+    final fun component1(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityContent.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.component3|component3(){}[0]
+    final fun component4(): io.github.androidpoet.liveactivities/LiveActivityProgress? // io.github.androidpoet.liveactivities/LiveActivityContent.component4|component4(){}[0]
+    final fun component5(): io.github.androidpoet.liveactivities/LiveActivityTimer? // io.github.androidpoet.liveactivities/LiveActivityContent.component5|component5(){}[0]
+    final fun component6(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityContent.component6|component6(){}[0]
+    final fun component7(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityContent.component7|component7(){}[0]
+    final fun component8(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityContent.component8|component8(){}[0]
+    final fun component9(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivityContent.component9|component9(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String? = ..., kotlin/String? = ..., io.github.androidpoet.liveactivities/LiveActivityProgress? = ..., io.github.androidpoet.liveactivities/LiveActivityTimer? = ..., kotlin/String? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ...): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivityContent.copy|copy(kotlin.String;kotlin.String?;kotlin.String?;io.github.androidpoet.liveactivities.LiveActivityProgress?;io.github.androidpoet.liveactivities.LiveActivityTimer?;kotlin.String?;kotlin.Long?;kotlin.Long?;kotlin.collections.Map<kotlin.String,kotlin.String>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityContent.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityContent.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityContent.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.liveactivities/LiveActivityRequest { // io.github.androidpoet.liveactivities/LiveActivityRequest|null[0]
+    constructor <init>(io.github.androidpoet.liveactivities/LiveActivityContent, kotlin/String = ..., kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...) // io.github.androidpoet.liveactivities/LiveActivityRequest.<init>|<init>(io.github.androidpoet.liveactivities.LiveActivityContent;kotlin.String;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+
+    final val attributes // io.github.androidpoet.liveactivities/LiveActivityRequest.attributes|{}attributes[0]
+        final fun <get-attributes>(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivityRequest.attributes.<get-attributes>|<get-attributes>(){}[0]
+    final val content // io.github.androidpoet.liveactivities/LiveActivityRequest.content|{}content[0]
+        final fun <get-content>(): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivityRequest.content.<get-content>|<get-content>(){}[0]
+    final val deepLink // io.github.androidpoet.liveactivities/LiveActivityRequest.deepLink|{}deepLink[0]
+        final fun <get-deepLink>(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityRequest.deepLink.<get-deepLink>|<get-deepLink>(){}[0]
+    final val id // io.github.androidpoet.liveactivities/LiveActivityRequest.id|{}id[0]
+        final fun <get-id>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityRequest.id.<get-id>|<get-id>(){}[0]
+    final val kind // io.github.androidpoet.liveactivities/LiveActivityRequest.kind|{}kind[0]
+        final fun <get-kind>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityRequest.kind.<get-kind>|<get-kind>(){}[0]
+
+    final fun component1(): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivityRequest.component1|component1(){}[0]
+    final fun component2(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityRequest.component2|component2(){}[0]
+    final fun component3(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityRequest.component3|component3(){}[0]
+    final fun component4(): kotlin.collections/Map<kotlin/String, kotlin/String> // io.github.androidpoet.liveactivities/LiveActivityRequest.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // io.github.androidpoet.liveactivities/LiveActivityRequest.component5|component5(){}[0]
+    final fun copy(io.github.androidpoet.liveactivities/LiveActivityContent = ..., kotlin/String = ..., kotlin/String = ..., kotlin.collections/Map<kotlin/String, kotlin/String> = ..., kotlin/String? = ...): io.github.androidpoet.liveactivities/LiveActivityRequest // io.github.androidpoet.liveactivities/LiveActivityRequest.copy|copy(io.github.androidpoet.liveactivities.LiveActivityContent;kotlin.String;kotlin.String;kotlin.collections.Map<kotlin.String,kotlin.String>;kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityRequest.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityRequest.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityRequest.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.liveactivities/LiveActivityTimer { // io.github.androidpoet.liveactivities/LiveActivityTimer|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long, kotlin/Boolean = ..., kotlin/Long? = ...) // io.github.androidpoet.liveactivities/LiveActivityTimer.<init>|<init>(kotlin.Long;kotlin.Long;kotlin.Boolean;kotlin.Long?){}[0]
+
+    final val countsDown // io.github.androidpoet.liveactivities/LiveActivityTimer.countsDown|{}countsDown[0]
+        final fun <get-countsDown>(): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityTimer.countsDown.<get-countsDown>|<get-countsDown>(){}[0]
+    final val endAtEpochMillis // io.github.androidpoet.liveactivities/LiveActivityTimer.endAtEpochMillis|{}endAtEpochMillis[0]
+        final fun <get-endAtEpochMillis>(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityTimer.endAtEpochMillis.<get-endAtEpochMillis>|<get-endAtEpochMillis>(){}[0]
+    final val pausedAtEpochMillis // io.github.androidpoet.liveactivities/LiveActivityTimer.pausedAtEpochMillis|{}pausedAtEpochMillis[0]
+        final fun <get-pausedAtEpochMillis>(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityTimer.pausedAtEpochMillis.<get-pausedAtEpochMillis>|<get-pausedAtEpochMillis>(){}[0]
+    final val startAtEpochMillis // io.github.androidpoet.liveactivities/LiveActivityTimer.startAtEpochMillis|{}startAtEpochMillis[0]
+        final fun <get-startAtEpochMillis>(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityTimer.startAtEpochMillis.<get-startAtEpochMillis>|<get-startAtEpochMillis>(){}[0]
+
+    final fun component1(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityTimer.component1|component1(){}[0]
+    final fun component2(): kotlin/Long // io.github.androidpoet.liveactivities/LiveActivityTimer.component2|component2(){}[0]
+    final fun component3(): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityTimer.component3|component3(){}[0]
+    final fun component4(): kotlin/Long? // io.github.androidpoet.liveactivities/LiveActivityTimer.component4|component4(){}[0]
+    final fun copy(kotlin/Long = ..., kotlin/Long = ..., kotlin/Boolean = ..., kotlin/Long? = ...): io.github.androidpoet.liveactivities/LiveActivityTimer // io.github.androidpoet.liveactivities/LiveActivityTimer.copy|copy(kotlin.Long;kotlin.Long;kotlin.Boolean;kotlin.Long?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityTimer.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityTimer.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityTimer.toString|toString(){}[0]
+}
+
+final class io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager : io.github.androidpoet.liveactivities/LiveActivityManager { // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager|null[0]
+    constructor <init>() // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.<init>|<init>(){}[0]
+
+    final val activities // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.activities|{}activities[0]
+        final fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.liveactivities/LiveActivity>> // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    final val isSupported // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.isSupported|{}isSupported[0]
+        final fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    final fun close() // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.close|close(){}[0]
+    final suspend fun authorization(): io.github.androidpoet.liveactivities/LiveActivityAuthorization // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.authorization|authorization(){}[0]
+    final suspend fun end(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent?, io.github.androidpoet.liveactivities/LiveActivityDismissal): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.end|end(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent?;io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    final suspend fun endAll(io.github.androidpoet.liveactivities/LiveActivityDismissal): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.endAll|endAll(io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    final suspend fun start(io.github.androidpoet.liveactivities/LiveActivityRequest): io.github.androidpoet.liveactivities/LiveActivityResult<io.github.androidpoet.liveactivities/LiveActivity> // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.start|start(io.github.androidpoet.liveactivities.LiveActivityRequest){}[0]
+    final suspend fun update(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/UnsupportedLiveActivityManager.update|update(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent){}[0]
+}
+
+sealed class <#A: out kotlin/Any?> io.github.androidpoet.liveactivities/LiveActivityResult { // io.github.androidpoet.liveactivities/LiveActivityResult|null[0]
+    final class <#A1: kotlin/Any?> Success : io.github.androidpoet.liveactivities/LiveActivityResult<#A1> { // io.github.androidpoet.liveactivities/LiveActivityResult.Success|null[0]
+        constructor <init>(#A1) // io.github.androidpoet.liveactivities/LiveActivityResult.Success.<init>|<init>(1:0){}[0]
+
+        final val value // io.github.androidpoet.liveactivities/LiveActivityResult.Success.value|{}value[0]
+            final fun <get-value>(): #A1 // io.github.androidpoet.liveactivities/LiveActivityResult.Success.value.<get-value>|<get-value>(){}[0]
+
+        final fun component1(): #A1 // io.github.androidpoet.liveactivities/LiveActivityResult.Success.component1|component1(){}[0]
+        final fun copy(#A1 = ...): io.github.androidpoet.liveactivities/LiveActivityResult.Success<#A1> // io.github.androidpoet.liveactivities/LiveActivityResult.Success.copy|copy(1:0){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityResult.Success.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityResult.Success.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityResult.Success.toString|toString(){}[0]
+    }
+
+    final class Failure : io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Nothing> { // io.github.androidpoet.liveactivities/LiveActivityResult.Failure|null[0]
+        constructor <init>(io.github.androidpoet.liveactivities/LiveActivityException) // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.<init>|<init>(io.github.androidpoet.liveactivities.LiveActivityException){}[0]
+
+        final val error // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.error|{}error[0]
+            final fun <get-error>(): io.github.androidpoet.liveactivities/LiveActivityException // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.error.<get-error>|<get-error>(){}[0]
+
+        final fun component1(): io.github.androidpoet.liveactivities/LiveActivityException // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.component1|component1(){}[0]
+        final fun copy(io.github.androidpoet.liveactivities/LiveActivityException = ...): io.github.androidpoet.liveactivities/LiveActivityResult.Failure // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.copy|copy(io.github.androidpoet.liveactivities.LiveActivityException){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityResult.Failure.toString|toString(){}[0]
+    }
+}
+
+sealed class io.github.androidpoet.liveactivities/LiveActivityException : kotlin/Exception { // io.github.androidpoet.liveactivities/LiveActivityException|null[0]
+    final val code // io.github.androidpoet.liveactivities/LiveActivityException.code|{}code[0]
+        final fun <get-code>(): kotlin/Int // io.github.androidpoet.liveactivities/LiveActivityException.code.<get-code>|<get-code>(){}[0]
+    open val cause // io.github.androidpoet.liveactivities/LiveActivityException.cause|{}cause[0]
+        open fun <get-cause>(): kotlin/Throwable? // io.github.androidpoet.liveactivities/LiveActivityException.cause.<get-cause>|<get-cause>(){}[0]
+    open val message // io.github.androidpoet.liveactivities/LiveActivityException.message|{}message[0]
+        open fun <get-message>(): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityException.message.<get-message>|<get-message>(){}[0]
+
+    final class AlreadyActive : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.AlreadyActive|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.AlreadyActive.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class InvalidContent : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.InvalidContent|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.InvalidContent.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class NotAuthorized : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.NotAuthorized|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.NotAuthorized.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class NotFound : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.NotFound|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.NotFound.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class PayloadTooLarge : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.PayloadTooLarge|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.PayloadTooLarge.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class PlatformError : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.PlatformError|null[0]
+        constructor <init>(kotlin/String, kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.PlatformError.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+
+    final class TooManyActivities : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.TooManyActivities|null[0]
+        constructor <init>(kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.TooManyActivities.<init>|<init>(kotlin.Throwable?){}[0]
+    }
+
+    final class Unsupported : io.github.androidpoet.liveactivities/LiveActivityException { // io.github.androidpoet.liveactivities/LiveActivityException.Unsupported|null[0]
+        constructor <init>(kotlin/String = ..., kotlin/Throwable? = ...) // io.github.androidpoet.liveactivities/LiveActivityException.Unsupported.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+    }
+}
+
+final object io.github.androidpoet.liveactivities/LiveActivityCodec { // io.github.androidpoet.liveactivities/LiveActivityCodec|null[0]
+    final fun decodeActivity(kotlin/String): io.github.androidpoet.liveactivities/LiveActivity // io.github.androidpoet.liveactivities/LiveActivityCodec.decodeActivity|decodeActivity(kotlin.String){}[0]
+    final fun decodeContent(kotlin/String): io.github.androidpoet.liveactivities/LiveActivityContent // io.github.androidpoet.liveactivities/LiveActivityCodec.decodeContent|decodeContent(kotlin.String){}[0]
+    final fun encodeActivity(io.github.androidpoet.liveactivities/LiveActivity): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityCodec.encodeActivity|encodeActivity(io.github.androidpoet.liveactivities.LiveActivity){}[0]
+    final fun encodeContent(io.github.androidpoet.liveactivities/LiveActivityContent): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityCodec.encodeContent|encodeContent(io.github.androidpoet.liveactivities.LiveActivityContent){}[0]
+    final fun encodeRequest(io.github.androidpoet.liveactivities/LiveActivityRequest, kotlin/Long): kotlin/String // io.github.androidpoet.liveactivities/LiveActivityCodec.encodeRequest|encodeRequest(io.github.androidpoet.liveactivities.LiveActivityRequest;kotlin.Long){}[0]
+}
+
+final const val io.github.androidpoet.liveactivities/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES // io.github.androidpoet.liveactivities/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES|{}LIVE_ACTIVITY_MAX_PAYLOAD_BYTES[0]
+    final fun <get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>(): kotlin/Int // io.github.androidpoet.liveactivities/LIVE_ACTIVITY_MAX_PAYLOAD_BYTES.<get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>|<get-LIVE_ACTIVITY_MAX_PAYLOAD_BYTES>(){}[0]
+
+final fun (io.github.androidpoet.liveactivities/LiveActivityContent).io.github.androidpoet.liveactivities/validate(): io.github.androidpoet.liveactivities/LiveActivityException? // io.github.androidpoet.liveactivities/validate|validate@io.github.androidpoet.liveactivities.LiveActivityContent(){}[0]
+final fun (io.github.androidpoet.liveactivities/LiveActivityDismissal).io.github.androidpoet.liveactivities/validate(kotlin/Long): io.github.androidpoet.liveactivities/LiveActivityException? // io.github.androidpoet.liveactivities/validate|validate@io.github.androidpoet.liveactivities.LiveActivityDismissal(kotlin.Long){}[0]
+final fun (io.github.androidpoet.liveactivities/LiveActivityRequest).io.github.androidpoet.liveactivities/validate(): io.github.androidpoet.liveactivities/LiveActivityException? // io.github.androidpoet.liveactivities/validate|validate@io.github.androidpoet.liveactivities.LiveActivityRequest(){}[0]
+final fun <#A: kotlin/Any?> (io.github.androidpoet.liveactivities/LiveActivityResult<#A>).io.github.androidpoet.liveactivities/errorOrNull(): io.github.androidpoet.liveactivities/LiveActivityException? // io.github.androidpoet.liveactivities/errorOrNull|errorOrNull@io.github.androidpoet.liveactivities.LiveActivityResult<0:0>(){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (io.github.androidpoet.liveactivities/LiveActivityResult<#A>).io.github.androidpoet.liveactivities/getOrNull(): #A? // io.github.androidpoet.liveactivities/getOrNull|getOrNull@io.github.androidpoet.liveactivities.LiveActivityResult<0:0>(){0§<kotlin.Any?>}[0]
+final fun io.github.androidpoet.liveactivities/generateLiveActivityId(): kotlin/String // io.github.androidpoet.liveactivities/generateLiveActivityId|generateLiveActivityId(){}[0]
+
+// Targets: [ios]
+abstract interface io.github.androidpoet.liveactivities/LiveActivityBridge { // io.github.androidpoet.liveactivities/LiveActivityBridge|null[0]
+    abstract fun activeActivities(): kotlin.collections/List<kotlin/String> // io.github.androidpoet.liveactivities/LiveActivityBridge.activeActivities|activeActivities(){}[0]
+    abstract fun areActivitiesEnabled(): kotlin/Boolean // io.github.androidpoet.liveactivities/LiveActivityBridge.areActivitiesEnabled|areActivitiesEnabled(){}[0]
+    abstract fun end(kotlin/String, kotlin/String?, kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.liveactivities/LiveActivityBridge.end|end(kotlin.String;kotlin.String?;kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+    abstract fun setStateListener(kotlin/Function2<kotlin/String, kotlin/String, kotlin/Unit>) // io.github.androidpoet.liveactivities/LiveActivityBridge.setStateListener|setStateListener(kotlin.Function2<kotlin.String,kotlin.String,kotlin.Unit>){}[0]
+    abstract fun start(kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.liveactivities/LiveActivityBridge.start|start(kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+    abstract fun update(kotlin/String, kotlin/String, kotlin/Long, kotlin/Function2<kotlin/String?, kotlin/String?, kotlin/Unit>) // io.github.androidpoet.liveactivities/LiveActivityBridge.update|update(kotlin.String;kotlin.String;kotlin.Long;kotlin.Function2<kotlin.String?,kotlin.String?,kotlin.Unit>){}[0]
+}
+
+// Targets: [ios]
+final class io.github.androidpoet.liveactivities/IosLiveActivityManager : io.github.androidpoet.liveactivities/LiveActivityManager { // io.github.androidpoet.liveactivities/IosLiveActivityManager|null[0]
+    constructor <init>() // io.github.androidpoet.liveactivities/IosLiveActivityManager.<init>|<init>(){}[0]
+
+    final val activities // io.github.androidpoet.liveactivities/IosLiveActivityManager.activities|{}activities[0]
+        final fun <get-activities>(): kotlinx.coroutines.flow/StateFlow<kotlin.collections/List<io.github.androidpoet.liveactivities/LiveActivity>> // io.github.androidpoet.liveactivities/IosLiveActivityManager.activities.<get-activities>|<get-activities>(){}[0]
+    final val isSupported // io.github.androidpoet.liveactivities/IosLiveActivityManager.isSupported|{}isSupported[0]
+        final fun <get-isSupported>(): kotlin/Boolean // io.github.androidpoet.liveactivities/IosLiveActivityManager.isSupported.<get-isSupported>|<get-isSupported>(){}[0]
+
+    final fun close() // io.github.androidpoet.liveactivities/IosLiveActivityManager.close|close(){}[0]
+    final suspend fun authorization(): io.github.androidpoet.liveactivities/LiveActivityAuthorization // io.github.androidpoet.liveactivities/IosLiveActivityManager.authorization|authorization(){}[0]
+    final suspend fun end(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent?, io.github.androidpoet.liveactivities/LiveActivityDismissal): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/IosLiveActivityManager.end|end(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent?;io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    final suspend fun endAll(io.github.androidpoet.liveactivities/LiveActivityDismissal): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/IosLiveActivityManager.endAll|endAll(io.github.androidpoet.liveactivities.LiveActivityDismissal){}[0]
+    final suspend fun start(io.github.androidpoet.liveactivities/LiveActivityRequest): io.github.androidpoet.liveactivities/LiveActivityResult<io.github.androidpoet.liveactivities/LiveActivity> // io.github.androidpoet.liveactivities/IosLiveActivityManager.start|start(io.github.androidpoet.liveactivities.LiveActivityRequest){}[0]
+    final suspend fun update(kotlin/String, io.github.androidpoet.liveactivities/LiveActivityContent): io.github.androidpoet.liveactivities/LiveActivityResult<kotlin/Unit> // io.github.androidpoet.liveactivities/IosLiveActivityManager.update|update(kotlin.String;io.github.androidpoet.liveactivities.LiveActivityContent){}[0]
+}
+
+// Targets: [ios]
+final object io.github.androidpoet.liveactivities/LiveActivities { // io.github.androidpoet.liveactivities/LiveActivities|null[0]
+    final val bridge // io.github.androidpoet.liveactivities/LiveActivities.bridge|{}bridge[0]
+        final fun <get-bridge>(): io.github.androidpoet.liveactivities/LiveActivityBridge? // io.github.androidpoet.liveactivities/LiveActivities.bridge.<get-bridge>|<get-bridge>(){}[0]
+
+    final fun register(io.github.androidpoet.liveactivities/LiveActivityBridge) // io.github.androidpoet.liveactivities/LiveActivities.register|register(io.github.androidpoet.liveactivities.LiveActivityBridge){}[0]
+}

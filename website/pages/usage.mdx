@@ -1,0 +1,63 @@
+---
+title: Usage
+description: Start, update and end live activities from shared code.
+---
+
+# Usage
+
+## Start
+
+```kotlin
+val now = Clock.System.now().toEpochMilliseconds()
+val content =
+    LiveActivityContent(
+        title = "Focus session",
+        subtitle = "Deep work",
+        progress = LiveActivityProgress.Determinate(current = 0, max = 25),
+        timer = LiveActivityTimer(startAtEpochMillis = now, endAtEpochMillis = now + 25 * 60_000L),
+        icon = "timer",                 // SF Symbol on iOS; key for iconResolver on Android
+        accentColorArgb = 0xFF4F46E5,
+    )
+
+val result = liveActivities.start(LiveActivityRequest(content, deepLink = "myapp://focus"))
+```
+
+## Update
+
+```kotlin
+liveActivities.update(id, content.copy(timer = content.timer?.copy(pausedAtEpochMillis = now)))
+```
+
+Only send an update when the content changes. The timer ticks on its own.
+
+## End
+
+```kotlin
+liveActivities.end(id, finalContent = content.copy(title = "Session complete"))      // Default dismissal
+liveActivities.end(id)                                                                // removed now
+liveActivities.end(id, finalContent, LiveActivityDismissal.After(now + 60_000L))
+```
+
+## Observe
+
+```kotlin
+val activities by liveActivities.activities.collectAsState()
+```
+
+Each `LiveActivity` carries its last content and a state: `Active`, `Ended`, `Dismissed`, or
+`Expired` when the system ended it (iOS stops activities after eight hours).
+
+## Content fields
+
+| Field | iOS | Android |
+| --- | --- | --- |
+| `title`, `subtitle` | Lock Screen + expanded island | Notification title + text |
+| `shortText` | Compact trailing slot (replaces the timer there) | Status-bar chip (replaces the timer there) |
+| `progress` | Progress bar | `ProgressStyle` |
+| `timer` | `Text(timerInterval:)` | Chronometer |
+| `icon` | SF Symbol name | `iconResolver(key)` |
+| `accentColorArgb` | Tint | `setColor` |
+| `staleAtEpochMillis` | `staleDate` | ignored |
+| `values` | Available to a custom widget | Stored in extras |
+
+Encoded requests must stay under 3 KB (`PayloadTooLarge` otherwise).

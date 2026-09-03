@@ -1,0 +1,48 @@
+---
+title: Android
+description: Android 16 Live Updates and the fallback on older versions.
+---
+
+# Android
+
+`AndroidLiveActivityManager` posts one notification per activity to the channel from
+`AndroidLiveActivityConfig`. On Android 16 it requests promotion to a Live Update: an ongoing
+notification with a status-bar chip, `ProgressStyle` and a ticking chronometer. Below Android 16,
+or when the system declines, it is a plain ongoing notification. The floor is API 26.
+
+## Setup
+
+1. Request `POST_NOTIFICATIONS` on API 33+ (the library only reports the outcome through
+   `authorization()`).
+2. Optionally configure icons and the tap action once, before the first manager is created:
+
+```kotlin
+LiveActivities.androidConfig =
+    AndroidLiveActivityConfig(
+        channelId = "live_activities",
+        smallIconRes = R.drawable.ic_timer,
+        iconResolver = { key -> if (key == "timer") R.drawable.ic_timer else 0 },
+        contentIntent = { activity -> pendingIntentFor(activity) },   // default: ACTION_VIEW deepLink
+    )
+```
+
+Icons are resolved through `iconResolver`, never by resource name, so release builds with
+resource shrinking keep working.
+
+## Promotion
+
+`canPromote` is true when the system lets the app post promoted notifications;
+`isPromotable(id)` checks a posted notification against the system's criteria. The library
+never fails a call because promotion was declined; you still get an ongoing notification.
+
+## Dismissal
+
+- `Immediate`, or `end` without final content: the notification is cancelled.
+- `Default`: the final card stays as a normal, swipeable notification and times out after four
+  hours (best effort; some OEMs ignore timeouts).
+- `After(t)`: times out at `t`.
+
+## Restore
+
+Activities still on screen after process death are decoded from the notification extras into
+`activities`, so `update` and `end` keep working. Nothing survives a reboot.

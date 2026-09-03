@@ -1,0 +1,30 @@
+---
+title: Results & Errors
+description: LiveActivityResult and the LiveActivityException hierarchy.
+---
+
+# Results & Errors
+
+Every call returns a `LiveActivityResult`:
+
+```kotlin
+when (val result = liveActivities.start(request)) {
+    is LiveActivityResult.Success -> result.value          // LiveActivity
+    is LiveActivityResult.Failure -> result.error          // LiveActivityException
+}
+```
+
+`LiveActivityException` subtypes carry a stable numeric `code`:
+
+| Code | Type | When |
+| --- | --- | --- |
+| 2001 | `Unsupported` | Platform, OS version, or missing iOS bridge |
+| 2002 | `NotAuthorized` | Notifications or Live Activities disabled |
+| 2003 | `NotFound` | No running activity with that id |
+| 2004 | `InvalidContent` | Validation failed (blank title, progress bounds, timer bounds, past dismissal) |
+| 2005 | `TooManyActivities` | Platform limit on concurrent activities |
+| 2006 | `PayloadTooLarge` | Encoded request over 3 KB |
+| 2007 | `AlreadyActive` | `start` with an id that is already running |
+| 2008 | `PlatformError` | Anything else the platform reported |
+
+`getOrNull()` and `errorOrNull()` are available on any result.

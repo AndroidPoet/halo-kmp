@@ -1,0 +1,64 @@
+name: iosApp
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "16.2"
+packages:
+  LiveActivitiesKMP:
+    path: ../../../swift/LiveActivitiesKMP
+settings:
+  base:
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    # DEVELOPMENT_TEAM is supplied at build time for device builds; simulator needs none.
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: iosApp
+    dependencies:
+      - package: LiveActivitiesKMP
+      - target: iosAppWidgets
+        embed: true
+        codeSign: true
+    info:
+      path: iosApp/Info.plist
+      properties:
+        CFBundleDisplayName: Live Activities
+        UILaunchScreen: {}
+        # Required for ActivityKit.
+        NSSupportsLiveActivities: true
+        # Compose on ProMotion iPhones needs this or it aborts at launch.
+        CADisableMinimumFrameDurationOnPhone: true
+        CFBundleURLTypes:
+          - CFBundleURLSchemes: [liveactivities]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.liveactivities.sample
+        FRAMEWORK_SEARCH_PATHS: $(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
+        OTHER_LDFLAGS: $(inherited) -framework ComposeApp
+    preBuildScripts:
+      - name: Compile Kotlin Framework
+        basedOnDependencyAnalysis: false
+        script: |
+          cd "$SRCROOT/../../.."
+          ./gradlew :sample:composeApp:embedAndSignAppleFrameworkForXcode
+  iosAppWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: iosAppWidgets
+    dependencies:
+      - package: LiveActivitiesKMP
+    info:
+      path: iosAppWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: Live Activities Widgets
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.liveactivities.sample.widgets
+        SKIP_INSTALL: YES
