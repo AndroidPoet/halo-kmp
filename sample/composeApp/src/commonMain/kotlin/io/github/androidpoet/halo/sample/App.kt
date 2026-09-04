@@ -51,7 +51,14 @@ fun App() {
         }
 
         LaunchedEffect(manager) { authorization = manager.authorization() }
-        LaunchedEffect(activities) { if (session == null) session = focus.restored() }
+        LaunchedEffect(activities) {
+            val current = session
+            if (current == null) {
+                session = focus.restored()
+            } else if (!focus.isActive(current)) {
+                session = null
+            }
+        }
 
         Column(
             modifier =

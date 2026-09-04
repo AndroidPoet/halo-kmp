@@ -87,8 +87,8 @@ public class IosLiveActivityManager internal constructor(
                 return LiveActivityResult.Failure(LiveActivityException.NotFound(id))
             }
             val failure =
-                await { done -> bridge.update(id, LiveActivityCodec.encodeContent(content), content.staleAtEpochMillis ?: 0, done) }
-            if (failure != null) return LiveActivityResult.Failure(failure)
+                await(id) { done -> bridge.update(id, LiveActivityCodec.encodeContent(content), content.staleAtEpochMillis ?: 0, done) }
+            if (failure != null) return LiveActivityResult.Failure(failure.expiring(id))
             store.updateContent(id, content)
             LiveActivityResult.Success(Unit)
         }
@@ -105,7 +105,7 @@ public class IosLiveActivityManager internal constructor(
         return mutex.withLock {
             if (store.get(id) == null) return LiveActivityResult.Failure(LiveActivityException.NotFound(id))
             val failure =
-                await { done ->
+                await(id) { done ->
                     bridge.end(
                         id,
                         finalContent?.let(LiveActivityCodec::encodeContent),
@@ -114,7 +114,7 @@ public class IosLiveActivityManager internal constructor(
                         done,
                     )
                 }
-            if (failure != null) return LiveActivityResult.Failure(failure)
+            if (failure != null) return LiveActivityResult.Failure(failure.expiring(id))
             val terminal = if (dismissal == LiveActivityDismissal.Immediate) LiveActivityState.Dismissed else LiveActivityState.Ended
             store.setState(id, terminal, finalContent)
             LiveActivityResult.Success(Unit)
@@ -171,16 +171,28 @@ public class IosLiveActivityManager internal constructor(
         if (next != current.state) store.setState(id, next)
     }
 
-    private suspend fun await(block: ((String?, String?) -> Unit) -> Unit): LiveActivityException? =
+    private suspend fun await(
+        id: String? = null,
+        block: ((String?, String?) -> Unit) -> Unit,
+    ): LiveActivityException? =
         suspendCancellableCoroutine { continuation ->
             block { code, message ->
-                if (continuation.isActive) continuation.resume(code?.let { toException(it, message) })
+                if (continuation.isActive) continuation.resume(code?.let { toException(it, message, id) })
             }
         }
+
+    /** ActivityKit no longer knows the activity, so the system must have removed it. */
+    private fun LiveActivityException.expiring(id: String): LiveActivityException {
+        if (this is LiveActivityException.NotFound && store.get(id)?.state == LiveActivityState.Active) {
+            store.setState(id, LiveActivityState.Expired)
+        }
+        return this
+    }
 
     private fun toException(
         code: String,
         message: String?,
+        id: String? = null,
     ): LiveActivityException {
         val detail = message ?: "ActivityKit reported $code"
         return when (code) {
@@ -188,7 +200,7 @@ public class IosLiveActivityManager internal constructor(
             "denied" -> LiveActivityException.NotAuthorized(detail)
             "too_many" -> LiveActivityException.TooManyActivities()
             "too_large" -> LiveActivityException.PayloadTooLarge(detail)
-            "not_found" -> LiveActivityException.PlatformError(detail)
+            "not_found" -> id?.let { LiveActivityException.NotFound(it) } ?: LiveActivityException.PlatformError(detail)
             else -> LiveActivityException.PlatformError(detail)
         }
     }

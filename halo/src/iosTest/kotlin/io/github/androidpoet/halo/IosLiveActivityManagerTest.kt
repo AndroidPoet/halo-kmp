@@ -152,6 +152,23 @@ class IosLiveActivityManagerTest {
         }
 
     @Test
+    fun bridgeNotFoundOnTrackedActivityMarksItExpired() =
+        runTest {
+            val bridge = FakeBridge()
+            val manager = manager(bridge)
+            manager.start(LiveActivityRequest(content, id = "a"))
+            bridge.failWith = "not_found" to null
+            assertIs<LiveActivityException.NotFound>(manager.end("a").errorOrNull())
+            assertEquals(
+                LiveActivityState.Expired,
+                manager.activities.value
+                    .single()
+                    .state,
+            )
+            assertIs<LiveActivityException.NotFound>(manager.update("a", content).errorOrNull())
+        }
+
+    @Test
     fun bridgeErrorCodesMapToExceptions() =
         runTest {
             val expected =

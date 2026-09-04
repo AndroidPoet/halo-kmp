@@ -86,6 +86,10 @@ class FocusSession(
         return (if (result is LiveActivityResult.Success) null else current) to LogLine("finish", result)
     }
 
+    /** False once the system ended or the user dismissed the session's activity. */
+    fun isActive(current: Session): Boolean =
+        manager.activities.value.any { it.id == current.id && it.state == LiveActivityState.Active }
+
     /** Adopts an activity restored after process death so Finish still works. */
     fun restored(): Session? {
         val active = manager.activities.value.firstOrNull { it.state == LiveActivityState.Active } ?: return null
