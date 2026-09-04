@@ -22,6 +22,18 @@ when (val result = liveActivities.start(LiveActivityRequest(content))) {
 }
 ```
 
+## Screenshots
+
+<div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-start', marginTop: 16 }}>
+  <img src="/halo-kmp/art/ios-lock-screen-active.png" alt="iOS Lock Screen live activity with a ticking countdown" width="180" />
+  <img src="/halo-kmp/art/ios-lock-screen-ended.png" alt="iOS Lock Screen live activity after end" width="180" />
+  <img src="/halo-kmp/art/android-notification-active.png" alt="Android 16 Live Update with progress and countdown chronometer" width="180" />
+  <img src="/halo-kmp/art/android-notification-ended.png" alt="Android notification after end" width="180" />
+</div>
+
+Same `LiveActivityContent` on both platforms: the default iOS widget on the Lock Screen, and
+the Android 16 promoted notification with a natively ticking chronometer.
+
 ## Why Halo
 
 - **Native surfaces, one call site.** ActivityKit and Live Updates behind a single interface.
