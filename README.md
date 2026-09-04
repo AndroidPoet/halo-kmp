@@ -23,6 +23,27 @@ Start, update and end a live activity from <code>commonMain</code>. iOS renders 
 chronometer), falling back to a plain ongoing notification on older versions.
 </p>
 
+## Screenshots
+
+<table align="center">
+  <tr>
+    <th>iOS Lock Screen</th>
+    <th>iOS ended</th>
+    <th>Android 16 Live Update</th>
+    <th>Android ended</th>
+  </tr>
+  <tr>
+    <td><img src="art/ios-lock-screen-active.png" alt="iOS Lock Screen live activity with a ticking countdown" width="200"/></td>
+    <td><img src="art/ios-lock-screen-ended.png" alt="iOS Lock Screen live activity after end with final content" width="200"/></td>
+    <td><img src="art/android-notification-active.png" alt="Android 16 promoted notification with progress and countdown chronometer" width="200"/></td>
+    <td><img src="art/android-notification-ended.png" alt="Android notification after end with final content" width="200"/></td>
+  </tr>
+</table>
+
+The default iOS widget and the Android notification are both driven by the same
+`LiveActivityContent`: title, subtitle, icon, accent colour, progress and a timer that
+ticks natively on each platform without per-second updates.
+
 ## Install
 
 ```kotlin
