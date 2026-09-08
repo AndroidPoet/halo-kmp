@@ -1,11 +1,11 @@
 ---
 title: iOS
-description: ActivityKit setup — Swift package, widget extension, bridge.
+description: ActivityKit setup — Swift package and widget extension, nothing to wire in code.
 ---
 
 # iOS
 
-ActivityKit is Swift-only, so the Kotlin manager talks to a small Swift bridge. Three pieces:
+ActivityKit is Swift-only and renders in a widget extension, so two pieces live on the Swift side:
 
 ## 1. Swift package (app **and** widget extension)
 
@@ -15,7 +15,7 @@ targets. It provides:
 - `HaloActivityAttributes` — the single `ActivityAttributes` type ActivityKit uses to match
   an activity to its widget. Never copy or re-declare it; a duplicate type means the activity
   starts but nothing renders.
-- `HaloKit` — the ActivityKit calls.
+- `HaloKit` and `HaloKMPBridge` — the ActivityKit calls, discovered by the Kotlin side at run time.
 - `HaloActivityWidget` — a default Lock Screen + Dynamic Island UI.
 
 ## 2. Widget extension
@@ -40,36 +40,18 @@ Add `NSSupportsLiveActivities = YES` to the **app's** `Info.plist`. The extensio
 For a custom look, write your own `ActivityConfiguration(for: HaloActivityAttributes.self)`
 and read `context.state` (`title`, `subtitle`, `timerRange`, `progressFraction`, `values`).
 
-## 3. Bridge file (app target only)
+## 3. Nothing else
 
-Copy `swift/HaloBridge.swift` into the app target, change `import ComposeApp` to your
-Kotlin framework's name, and register it at launch:
-
-```swift
-@main
-struct MyApp: App {
-    init() { Halo.shared.register(bridge: HaloBridge()) }
-    // ...
-}
-```
-
-Export the library from the framework so Swift sees `LiveActivityBridge` and `LiveActivities`:
-
-```kotlin
-listOf(iosArm64(), iosSimulatorArm64()).forEach {
-    it.binaries.framework {
-        baseName = "ComposeApp"
-        export(project(":halo"))
-    }
-}
-// commonMain: api(project(":halo"))
-```
+The Kotlin side finds the package's `HaloKMPBridge` class at run time, so there is no bridge
+file to copy, no `register` call and no `export` of the Kotlin framework; `implementation(...)`
+in `commonMain` is enough. Apps that bring their own ActivityKit code can still pass a
+`LiveActivityBridge` to `Halo.register`, which then takes precedence.
 
 Link the Kotlin framework exactly once; a second copy has its own empty bridge registry.
 
 ## Behaviour
 
-- Floor is iOS 16.2. `isSupported` is false until the bridge is registered.
+- Floor is iOS 16.2. `isSupported` is false when the HaloKMP package is not linked into the app.
 - `authorization()` is `Denied` when `ActivityAuthorizationInfo().areActivitiesEnabled` is false.
 - The system ends activities after eight hours; they surface as `Expired`.
 - `staleAtEpochMillis` becomes `ActivityContent.staleDate`; the default widget dims stale content.

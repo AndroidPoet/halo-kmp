@@ -1,0 +1,41 @@
+language = Objective-C
+package = io.github.androidpoet.halo.internal.bridge
+compilerOpts = -fobjc-arc
+linkerOpts = -framework Foundation
+---
+#import <Foundation/Foundation.h>
+
+// The Swift side of live activities is discovered at run time by class name, so the
+// app links the HaloKMP Swift package and nothing else: no Kotlin framework export,
+// no glue file, no registration call. `HaloKMPBridge` in the package implements
+// these selectors with @objc methods; ObjC dispatch matches on the selector alone.
+
+typedef void (^HaloCompletion)(NSString *_Nullable code, NSString *_Nullable message);
+typedef void (^HaloStateListener)(NSString *_Nonnull activityId, NSString *_Nonnull state);
+
+@protocol HaloBridging <NSObject>
+- (BOOL)areActivitiesEnabled;
+- (NSArray<NSString *> *_Nonnull)activeActivities;
+- (void)startWithActivityJson:(NSString *_Nonnull)activityJson
+           staleAtEpochMillis:(int64_t)staleAtEpochMillis
+                   completion:(HaloCompletion _Nonnull)completion;
+- (void)updateWithId:(NSString *_Nonnull)activityId
+         contentJson:(NSString *_Nonnull)contentJson
+  staleAtEpochMillis:(int64_t)staleAtEpochMillis
+          completion:(HaloCompletion _Nonnull)completion;
+- (void)endWithId:(NSString *_Nonnull)activityId
+ finalContentJson:(NSString *_Nullable)finalContentJson
+        dismissal:(NSString *_Nonnull)dismissal
+dismissAtEpochMillis:(int64_t)dismissAtEpochMillis
+       completion:(HaloCompletion _Nonnull)completion;
+- (void)setStateListener:(HaloStateListener _Nonnull)listener;
+@end
+
+/// A new instance of the `HaloKMPBridge` class from the HaloKMP Swift package, or nil when the package is not linked.
+id<HaloBridging> _Nullable halo_bridge_instance(void);
+
+id<HaloBridging> halo_bridge_instance(void) {
+    Class cls = NSClassFromString(@"HaloKMPBridge");
+    if (cls == Nil) return nil;
+    return (id<HaloBridging>)[[cls alloc] init];
+}

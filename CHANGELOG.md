@@ -4,7 +4,14 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 0.2.0 - 2026-09-09
+
+### Changed
+
+- **iOS** — no app-side wiring any more. The Kotlin side finds the HaloKMP Swift package's
+  `HaloKMPBridge` class at run time, so the bridge file, the `Halo.shared.register(...)` call
+  and the framework `export` are gone; link the package and add the widget extension, nothing
+  else. `Halo.register` stays as an optional override for custom ActivityKit code.
 
 ### Fixed
 

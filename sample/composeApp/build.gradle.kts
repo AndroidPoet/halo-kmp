@@ -16,14 +16,12 @@ kotlin {
         target.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            // Exposes LiveActivityBridge / LiveActivities to Swift under their own names.
-            export(project(":halo"))
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":halo"))
+            implementation(project(":halo"))
             implementation(project(":halo-compose"))
             implementation(compose.runtime)
             implementation(compose.foundation)

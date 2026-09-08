@@ -18,7 +18,7 @@ when (val result = liveActivities.start(request)) {
 
 | Code | Type | When |
 | --- | --- | --- |
-| 2001 | `Unsupported` | Platform, OS version, or missing iOS bridge |
+| 2001 | `Unsupported` | Platform, OS version, or the HaloKMP Swift package not linked on iOS |
 | 2002 | `NotAuthorized` | Notifications or Live Activities disabled |
 | 2003 | `NotFound` | No running activity with that id |
 | 2004 | `InvalidContent` | Validation failed (blank title, progress bounds, timer bounds, past dismissal) |

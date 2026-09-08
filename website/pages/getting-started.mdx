@@ -9,8 +9,8 @@ description: Add Halo to a Kotlin Multiplatform project.
 
 ```kotlin
 commonMain.dependencies {
-    implementation("io.github.androidpoet:halo:0.1.0")
-    implementation("io.github.androidpoet:halo-compose:0.1.0")
+    implementation("io.github.androidpoet:halo:0.2.0")
+    implementation("io.github.androidpoet:halo-compose:0.2.0")
 }
 ```
 
@@ -33,6 +33,6 @@ on Android, `IosLiveActivityManager()` on iOS, `UnsupportedLiveActivityManager()
 ## Finish the platform setup
 
 - [Android](/android): request `POST_NOTIFICATIONS` on API 33+, optionally configure icons.
-- [iOS](/ios): add the Swift package, a widget extension and the bridge file.
+- [iOS](/ios): add the Swift package and a widget extension. No code to write.
 
 Then follow [Usage](/usage).

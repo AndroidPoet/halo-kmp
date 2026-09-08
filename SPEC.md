@@ -168,18 +168,25 @@ public interface LiveActivityBridge {
     public fun start(activityJson: String, staleAtEpochMillis: Long, completion: (code: String?, message: String?) -> Unit)
     public fun update(id: String, contentJson: String, staleAtEpochMillis: Long, completion: (String?, String?) -> Unit)
     public fun end(id: String, finalContentJson: String?, dismissal: String, dismissAtEpochMillis: Long, completion: (String?, String?) -> Unit)
-    public fun setStateListener(listener: (id: String, state: String) -> Unit)  // called once by Halo.register
+    public fun setStateListener(listener: (id: String, state: String) -> Unit)  // called once when the bridge is installed
 }
 public object Halo {
-    public fun register(bridge: LiveActivityBridge)   // installs the single state listener → internal SharedFlow fan-out
-    public val bridge: LiveActivityBridge?
+    public fun register(bridge: LiveActivityBridge)   // optional override; installs the single state listener → SharedFlow fan-out
+    public val bridge: LiveActivityBridge?            // registered bridge, else discovered once from the HaloKMP package
 }
 public class IosLiveActivityManager : LiveActivityManager   // reads Halo.bridge lazily on every call
 ```
 Error code vocabulary from Swift: `unsupported | denied | too_many | too_large | not_found | platform`.
 State vocabulary: `active | ended | dismissed | expired` (Swift emits `expired` when `activityStateUpdates` reports
 `.ended`/`.dismissed` for an id the library did not end itself).
-`isSupported` = iOS ≥ 16.2 && bridge registered (evaluated per read, so late registration recovers).
+`isSupported` = iOS ≥ 16.2 && a bridge is present (evaluated per read).
+
+**Discovery (0.2.0).** A cinterop unit (`halo/src/nativeInterop/cinterop/haloBridge.def`) declares the ObjC protocol
+`HaloBridging` (the six selectors above) and `halo_bridge_instance()`, which returns `[[NSClassFromString(@"HaloKMPBridge") alloc] init]`
+or nil. `Halo.bridge` calls it once on first read and wraps the object in `ObjCLiveActivityBridge`. The Swift package's
+`@objc(HaloKMPBridge) final class HaloKMPBridge: NSObject` implements the selectors and forwards to `HaloKit`. Swift never
+imports the Kotlin framework, so the app needs no `export`, no glue file and no `register` call; `register` remains as an
+override. Requires `kotlin.mpp.enableCInteropCommonization=true` for the shared `iosMain` metadata compile.
 
 Swift package `swift/HaloKMP` (no Kotlin dependency; `platforms: [.iOS(.v16)]`; **linked by app and widget extension** —
 the single source of `HaloActivityAttributes`, consumers never copy it):
@@ -192,10 +199,12 @@ the single source of `HaloActivityAttributes`, consumers never copy it):
   `Text(timerInterval: start...end, pauseTime: pausedAt, countsDown:)` where `start <= end` is guaranteed by validation
   (an elapsed countdown shows 0:00, never traps). `shortText` displaces the timer in compact trailing.
   `widgetURL(deepLink)`. Stale state renders dimmed.
-- Glue file `swift/HaloBridge.swift` — the only copied source: `final class HaloBridge: LiveActivityBridge`
-  forwarding to `HaloKit`, plus `Halo.shared.register(bridge:)`. Declares no attributes type.
+- `HaloKMPBridge` — `@objc` class found by name from Kotlin (see Discovery). Nothing is copied into the app.
 - Link-once rule: the Kotlin framework containing this library must be linked exactly once (the app's umbrella framework);
   the widget extension links only the Swift package.
+
+Verified 2026-09-09 (0.2.0): iPhone 17 simulator, stock SwiftUI `App` with no Halo code, app target linking only the
+Swift package: `isSupported` true, start → Active, +5 min update, finish → Ended.
 
 ### 3.3 jvm / macOS / wasmJs → `UnsupportedLiveActivityManager`.
 

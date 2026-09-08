@@ -16,9 +16,11 @@ kotlin {
 
     androidTarget { publishLibraryVariants("release") }
     jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { target ->
+        target.compilations.getByName("main").cinterops.create("haloBridge") {
+            defFile(project.file("src/nativeInterop/cinterop/haloBridge.def"))
+        }
+    }
     macosX64()
     macosArm64()
     wasmJs { browser() }

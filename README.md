@@ -47,8 +47,8 @@ ticks natively on each platform without per-second updates.
 ## Install
 
 ```kotlin
-implementation("io.github.androidpoet:halo:0.1.0")          // core API + platform managers
-implementation("io.github.androidpoet:halo-compose:0.1.0")  // rememberLiveActivityManager()
+implementation("io.github.androidpoet:halo:0.2.0")          // core API + platform managers
+implementation("io.github.androidpoet:halo-compose:0.2.0")  // rememberLiveActivityManager()
 ```
 
 ## Usage
@@ -87,7 +87,7 @@ The timer ticks on its own on both platforms. Call `update` only when the conten
 | Platform | Surface | Floor | One-time setup |
 | --- | --- | --- | --- |
 | Android | Live Update (promoted ongoing notification) on Android 16; ongoing notification below | API 26 | Request `POST_NOTIFICATIONS` on API 33+ |
-| iOS | Lock Screen + Dynamic Island via ActivityKit | iOS 16.2 | Widget extension, `NSSupportsLiveActivities`, Swift package, bridge file (below) |
+| iOS | Lock Screen + Dynamic Island via ActivityKit | iOS 16.2 | Link the Swift package, add the widget extension |
 | JVM, macOS, Wasm | `UnsupportedLiveActivityManager` so shared code compiles | — | — |
 
 ### Android
@@ -106,26 +106,17 @@ shrunk release builds keep working. `AndroidLiveActivityManager.canPromote` and
 
 ### iOS
 
-ActivityKit is Swift-only, so three small pieces live on the Swift side:
+ActivityKit is Swift-only and renders in a widget extension, so two things live on the Swift
+side. Neither is code you write against the Kotlin framework:
 
-1. **Swift package** `swift/HaloKMP` — add it to **both** the app target and the
-   widget extension. It holds `HaloActivityAttributes` (the one attributes type ActivityKit
-   matches on; never copy it) and `HaloActivityWidget`, a ready-made Lock Screen +
-   Dynamic Island UI.
-2. **Widget extension** — a `WidgetBundle` whose body is `HaloActivityWidget()`. Add
-   `NSSupportsLiveActivities = YES` to the app's `Info.plist`.
-3. **Bridge file** — copy `swift/HaloBridge.swift` into the app target, point its
-   import at your Kotlin framework, and register it at launch:
+1. **Swift package** `swift/HaloKMP` — add it to **both** the app target and the widget
+   extension. It holds `HaloActivityAttributes` (the one attributes type ActivityKit matches
+   on; never copy it), `HaloActivityWidget`, a ready-made Lock Screen + Dynamic Island UI, and
+   the bridge the Kotlin side finds by itself at run time.
+2. **Widget extension** — a `WidgetBundle` whose body is `HaloActivityWidget()`, and
+   `NSSupportsLiveActivities = YES` in the app's `Info.plist`.
 
-```swift
-Halo.shared.register(bridge: HaloBridge())
-```
-
-Export the library from your framework so Swift sees the bridge types by name:
-
-```kotlin
-binaries.framework { export(project(":halo")) }   // plus api(...) in commonMain
-```
+No bridge file to copy, no `register` call, no `export` of the Kotlin framework.
 
 Want your own look? Write an `ActivityConfiguration(for: HaloActivityAttributes.self)` and
 read `context.state` (title, subtitle, progress, timer range, `values`).
@@ -148,7 +139,7 @@ read `context.state` (title, subtitle, progress, timer range, `values`).
 | Symptom | Cause |
 | --- | --- |
 | iOS: `start` succeeds, nothing renders | The attributes type is duplicated across targets. Link the Swift package from both targets; do not copy `HaloActivityAttributes`. |
-| iOS: `Unsupported` | Bridge not registered, or iOS < 16.2. Register at app init. |
+| iOS: `Unsupported` | The HaloKMP Swift package is not linked into the app target, or iOS < 16.2. |
 | Android: no status-bar chip | Pre-Android 16, `canPostPromotedNotifications()` false, or `shortText` and timer both absent. |
 
 ## Sample
